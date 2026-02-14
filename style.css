@@ -1,4 +1,11 @@
-/* Variable Definitions */
+/* 
+ * Style.css
+ * Main stylesheet for the Portfolio Website
+ * Author: MD Shoaib Khan
+ * Description: Contains all styles including variables, reset, layout, and component styles.
+ */
+
+/* Variable Definitions - CSS Custom Properties for easy theming */
 :root {
     --bg-color: #0a0a0a;
     --bg-secondary: #111111;
@@ -20,6 +27,7 @@
 }
 
 /* Base Styles & Reset */
+/* Resets default browser styles and sets up base typography */
 * {
     margin: 0;
     padding: 0;
@@ -53,7 +61,8 @@ img {
     display: block;
 }
 
-/* Utilities */
+/* Basic Utilities */
+/* Common utility classes for layout and spacing */
 .container {
     max-width: var(--container-width);
     margin: 0 auto;
@@ -85,7 +94,8 @@ img {
     font-weight: 700;
 }
 
-/* Buttons */
+/* Button Styles */
+/* Primary and secondary button variations with hover effects */
 .btn {
     display: inline-block;
     padding: 12px 30px;
@@ -118,7 +128,8 @@ img {
     color: var(--primary-color);
 }
 
-/* Header */
+/* Header & Navigation */
+/* Fixed header with blurred background and responsive navigation */
 .header {
     height: var(--header-height);
     display: flex;
@@ -172,6 +183,7 @@ img {
 }
 
 /* Hero Section */
+/* Main landing area with animated text and visual elements */
 .hero {
     min-height: 100vh;
     display: flex;
@@ -332,6 +344,7 @@ img {
 }
 
 /* About Section */
+/* Styles for the about me text and statistics counters */
 .about {
     background-color: var(--bg-secondary);
 }
@@ -372,6 +385,7 @@ img {
 }
 
 /* Skills Section */
+/* Grid layout for skill cards with hover animations */
 .skills-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -409,6 +423,7 @@ img {
 }
 
 /* Portfolio Section */
+/* Project grid with card styling and hover effects */
 .portfolio-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -483,6 +498,7 @@ img {
 }
 
 /* Contact Section */
+/* Contact info and form styling */
 .contact-wrapper {
     display: grid;
     grid-template-columns: 1fr 1.5fr;
@@ -549,6 +565,7 @@ img {
 }
 
 /* Footer */
+/* Simple footer with copyright and links */
 .footer {
     padding: 50px 0;
     background: var(--bg-secondary);
@@ -577,7 +594,8 @@ img {
     color: var(--primary-color);
 }
 
-/* Responsive */
+/* Responsive Design */
+/* Media queries for tablets and mobile devices */
 @media (max-width: 992px) {
     .hero-container {
         flex-direction: column-reverse;
