@@ -392,6 +392,18 @@ img {
     color: var(--text-secondary);
 }
 
+.logo span.logo-char-1 {
+    color: var(--google-blue);
+}
+
+.logo span.logo-char-2 {
+    color: var(--google-red);
+}
+
+.logo span.logo-char-3 {
+    color: var(--google-yellow);
+}
+
 .navbar {
     display: flex;
     gap: 8px;

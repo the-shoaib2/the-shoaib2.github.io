@@ -299,7 +299,14 @@
         function populateSite(site, profile) {
             document.getElementById('site-title').textContent = site.title;
             const logo = document.getElementById('site-logo');
-            logo.innerHTML = `<img src="public/images/favicon.ico" alt="Icon" class="logo-icon"> <div>${site.logo.text}<span>${site.logo.span}</span></div>`;
+            const logoText = site.logo.text;
+            let charIndex = 0;
+            const coloredText = logoText.split('').map(char => {
+                if (char.trim() === '') return char;
+                charIndex++;
+                return `<span class="logo-char-${charIndex}">${char}</span>`;
+            }).join('');
+            logo.innerHTML = `<img src="public/images/favicon.ico" alt="Icon" class="logo-icon"> <div>${coloredText}<span>${site.logo.span}</span></div>`;
 
             const nav = document.getElementById('site-nav');
             site.nav.forEach((item, index) => {
