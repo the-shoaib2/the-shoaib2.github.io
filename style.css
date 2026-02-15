@@ -28,24 +28,24 @@
 }
 
 :root.dark {
-        --bg-color: #0b0b0b;
-        --bg-secondary: #161616;
-        --border-color: #3c4043;
-        --card-bg: rgba(30, 30, 30, 0.8);
-        --glass-backdrop: blur(20px) saturate(180%);
-        --glass-bg: rgba(25, 25, 25, 0.8);
-        --glass-border: 1px solid rgba(255, 255, 255, 0.08);
-        --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
-        --primary-color: #ffffff;
-        --primary-dark: #ffffff;
-        --secondary-color: #9aa0a6;
-        --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.9);
-        --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.7);
-        --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
-        --surface-variant: #202124;
-        --tertiary-color: #3c4043;
-        --text-color: #e8eaed;
-        --text-secondary: #9aa0a6;
+    --bg-color: #0b0b0b;
+    --bg-secondary: #161616;
+    --border-color: #3c4043;
+    --card-bg: rgba(30, 30, 30, 0.8);
+    --glass-backdrop: blur(20px) saturate(180%);
+    --glass-bg: rgba(25, 25, 25, 0.8);
+    --glass-border: 1px solid rgba(255, 255, 255, 0.08);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+    --primary-color: #ffffff;
+    --primary-dark: #ffffff;
+    --secondary-color: #9aa0a6;
+    --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.9);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.7);
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+    --surface-variant: #202124;
+    --tertiary-color: #3c4043;
+    --text-color: #e8eaed;
+    --text-secondary: #9aa0a6;
 }
 
 /* Global & Reset */
@@ -79,6 +79,17 @@ body {
     font-family: var(--font-body);
     line-height: 1.7;
     overflow-x: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+    cursor: default;
+}
+
+input,
+textarea,
+[contenteditable="true"] {
+    user-select: text;
+    -webkit-user-select: text;
+    cursor: text;
 }
 
 body.loading {
@@ -1055,24 +1066,24 @@ img {
     from {
         opacity: 0;
         transform: translateY(80px);
-}
+    }
 
     to {
         opacity: 1;
         transform: translateY(0);
-}
+    }
 }
 
 @keyframes fadeInLeft {
     from {
         opacity: 0;
         transform: translateX(40px);
-}
+    }
 
     to {
         opacity: 1;
         transform: translateX(0);
-}
+    }
 }
 
 @keyframes float {
@@ -1080,36 +1091,36 @@ img {
     0%,
     100% {
         transform: translateY(0);
-}
+    }
 
     50% {
         transform: translateY(-10px);
-}
+    }
 }
 
 @keyframes ripple {
     to {
         opacity: 0;
         transform: scale(4);
-}
+    }
 }
 
 @keyframes fadeIn {
     from {
         opacity: 0;
         transform: translateY(-5px);
-}
+    }
 
     to {
         opacity: 1;
         transform: translateY(0);
-}
+    }
 }
 
 @keyframes spin {
     to {
         transform: rotate(360deg);
-}
+    }
 }
 
 /* =========================================
@@ -1118,7 +1129,7 @@ img {
 @media (hover: none) {
     .project-card:hover {
         transform: none;
-}
+    }
 }
 
 @media (min-width: 900px) {
@@ -1126,7 +1137,7 @@ img {
         grid-template-columns: 1.2fr 0.8fr;
         gap: 80px;
         text-align: left;
-}
+    }
 }
 
 @media (max-width: 992px) {
@@ -1135,60 +1146,60 @@ img {
         justify-content: center;
         padding-top: 40px;
         text-align: center;
-}
+    }
 
     .hero-content {
         max-width: 100%;
         margin-top: 20px;
-}
+    }
 
     .hero-btns,
     .social-links,
     .stats {
         justify-content: center;
-}
+    }
 
     .stats {
         justify-items: center;
-}
+    }
 
     .title {
         font-size: 4rem;
-}
+    }
 
     .about-content {
         grid-template-columns: 1fr;
         gap: 40px;
         text-align: center;
-}
+    }
 
     .contact-wrapper {
         grid-template-columns: 1fr;
         gap: 60px;
-}
+    }
 
     .hero-visual {
         justify-content: center;
         width: 100%;
         height: auto;
         margin-bottom: 20px;
-}
+    }
 
     .profile-img-container {
         width: 350px;
         height: 450px;
         margin: 0 auto;
-}
+    }
 }
 
 @media (max-width: 768px) {
     .section {
         padding: 80px 0;
-}
+    }
 
     .container {
         padding: 0 24px;
-}
+    }
 
     .navbar {
         position: fixed;
@@ -1205,80 +1216,80 @@ img {
         backdrop-filter: var(--glass-backdrop);
         -webkit-backdrop-filter: var(--glass-backdrop);
         transition: transform 0.4s var(--easing-standard);
-}
+    }
 
     .navbar.active {
         transform: translateY(0);
         box-shadow: var(--glass-shadow);
-}
+    }
 
     .mobile-toggle {
         display: block;
-}
+    }
 
     .title {
         font-size: 3rem;
         letter-spacing: -1px;
-}
+    }
 
     .description {
         font-size: 1.1rem;
-}
+    }
 
     .section-title {
         font-size: 2.2rem;
-}
+    }
 
     .section-header {
         margin-bottom: 40px;
         text-align: center;
-}
+    }
 
     .profile-img-container {
         width: 220px;
         height: 220px;
         margin: 0 auto;
         border-radius: 40px;
-}
+    }
 
     .hero-visual {
         justify-content: center;
         width: 100%;
         height: auto;
         margin-top: 40px;
-}
+    }
 
     .hero-container {
         flex-direction: column-reverse;
         padding-top: 20px;
         text-align: center;
-}
+    }
 
     .portfolio-grid {
         grid-template-columns: 1fr;
-}
+    }
 
     .project-img {
         height: 220px;
-}
+    }
 
     .btn {
         justify-content: center;
         width: 100%;
         padding: 10px 20px;
         font-size: 0.95rem;
-}
+    }
 
     .hero-btns {
         flex-direction: row;
         flex-wrap: wrap;
-}
+    }
 
     .modal-content img {
         width: 320px;
         height: 320px;
         border-radius: 50%;
-}
+    }
 
     .modal-close {
         top: 20px;
@@ -1286,27 +1297,26 @@ img {
         width: 44px;
         height: 44px;
         font-size: 1.2rem;
-}
+    }
 }
 
 @media (max-width: 480px) {
     .title {
         font-size: 2.5rem;
-}
+    }
 
     .hero-btns {
         flex-direction: column;
         gap: 12px;
-}
+    }
 
     .btn {
         width: 100%;
-}
+    }
 
     .profile-img-container {
         width: 240px;
         height: 240px;
         border-radius: 30px;
+    }
 }
-}
-
