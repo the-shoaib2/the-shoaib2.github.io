@@ -86,6 +86,9 @@
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
     --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.5);
     --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.7);
+
+    /* Modal Backdrop */
+    --modal-backdrop: rgba(255, 255, 255, 0.4);
 }
 
 :root.dark {
@@ -137,6 +140,9 @@
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
     --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.7);
     --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.9);
+
+    /* Modal Backdrop Dark */
+    --modal-backdrop: rgba(0, 0, 0, 0.7);
 }
 
 /* Global & Reset */
@@ -481,7 +487,7 @@ img {
 
 .title {
     margin-bottom: 30px;
-    background: linear-gradient(135deg, var(--black) 0%, var(--gray-600) 100%);
+    background: linear-gradient(135deg, var(--foreground) 0%, var(--gray-600) 100%);
     color: var(--text-color);
     font-family: var(--font-heading);
     font-size: 6rem;
@@ -527,9 +533,9 @@ img {
     width: 350px;
     max-width: 80vw;
     height: 350px;
-    border: 4px solid var(--white);
+    border: 4px solid var(--card);
     border-radius: 50%;
-    background: var(--white);
+    background: var(--card);
     box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.05);
     transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
     cursor: pointer;
@@ -739,9 +745,9 @@ img {
 
 .skill-tag {
     padding: 6px 16px;
-    border: 1px solid var(--gray-200);
+    border: 1px solid var(--border);
     border-radius: 50px;
-    background: var(--white);
+    background: var(--background);
     color: var(--text-secondary);
     font-size: 0.9rem;
     font-weight: 500;
@@ -932,9 +938,9 @@ img {
 .form-group textarea {
     width: 100%;
     padding: 16px 20px;
-    border: 1px solid #dadce0 !important;
+    border: 1px solid var(--border);
     border-radius: 12px;
-    background: #f8f9fa !important;
+    background: var(--muted);
     color: var(--text-color);
     font-family: var(--font-body);
     font-size: 1.05rem;
@@ -945,7 +951,7 @@ img {
 .form-group textarea:focus {
     outline: none;
     border-color: var(--google-blue);
-    background: var(--white);
+    background: var(--background);
     box-shadow: 0 0 0 4px rgba(66, 133, 244, 0.1);
 }
 
@@ -977,16 +983,16 @@ img {
 
 .contact-status.success {
     display: block;
-    border: 1px solid #ceead6;
-    background: #e6f4ea;
-    color: #137333;
+    border: 1px solid var(--google-green);
+    background: rgba(52, 168, 83, 0.1);
+    color: var(--google-green);
 }
 
 .contact-status.error {
     display: block;
-    border: 1px solid #fad2cf;
-    background: #fce8e6;
-    color: #c5221f;
+    border: 1px solid var(--google-red);
+    background: rgba(234, 67, 53, 0.1);
+    color: var(--google-red);
 }
 
 .footer {
@@ -1112,7 +1118,7 @@ img {
     opacity: 0;
     width: 100%;
     height: 100%;
-    background: rgba(255, 255, 255, 0.2);
+    background: var(--modal-backdrop);
     backdrop-filter: blur(0px) saturate(100%);
     -webkit-backdrop-filter: blur(0px) saturate(100%);
     transition: none;
@@ -1523,4 +1529,54 @@ img {
 
 .section-visible {
     animation: fadeInBlur 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    margin-left: auto;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    background: var(--white);
+    color: var(--black);
+    font-size: 1rem;
+    transition: all 0.3s var(--easing-standard);
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+    background: var(--google-blue);
+    border-color: var(--google-blue);
+    color: var(--white);
+    box-shadow: 0 4px 12px rgba(66, 133, 244, 0.3);
+}
+
+:root.dark .theme-toggle {
+    background: var(--gray-800);
+    border-color: var(--gray-700);
+    color: var(--gray-200);
+}
+
+:root.dark .theme-toggle:hover {
+    background: var(--google-blue);
+    border-color: var(--google-blue);
+    color: var(--white);
+}
+
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+
+    .theme-toggle {
+        margin-left: 0;
+    }
 }

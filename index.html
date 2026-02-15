@@ -196,6 +196,9 @@
                     <span class="separator">•</span>
                     <a href="privacy.html">Privacy Policy</a>
                 </div>
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Theme">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
             </div>
         </footer>
     </div>
@@ -643,7 +646,13 @@
         const ctx = canvas.getContext('2d');
         let particles = [];
         const particleCount = 200;
-        const colors = ['rgba(0, 0, 0, 0.5)', 'rgba(0, 0, 0, 0.7)', 'rgba(32, 33, 36, 0.7)'];
+
+        function getParticleColors() {
+            const isDark = document.documentElement.classList.contains('dark');
+            return isDark
+                ? ['rgba(255, 255, 255, 0.3)', 'rgba(255, 255, 255, 0.1)', 'rgba(200, 200, 200, 0.2)']
+                : ['rgba(0, 0, 0, 0.5)', 'rgba(0, 0, 0, 0.7)', 'rgba(32, 33, 36, 0.7)'];
+        }
 
         function resizeCanvas() {
             canvas.width = window.innerWidth;
@@ -657,6 +666,7 @@
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
                 this.size = Math.random() * 1.8 + 0.2;
+                const colors = getParticleColors();
                 this.color = colors[Math.floor(Math.random() * colors.length)];
                 this.vx = (Math.random() - 0.5) * 0.8;
                 this.vy = (Math.random() - 0.5) * 0.8;
@@ -772,6 +782,65 @@
         // Observe all sections
         document.querySelectorAll('section').forEach(section => {
             sectionObserver.observe(section);
+        });
+
+        /**************************************************************************
+         * THEME MANAGEMENT (Light/Dark Mode)
+         **************************************************************************/
+
+        function setCookie(name, value, days) {
+            let expires = "";
+            if (days) {
+                const date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "") + expires + "; path=/";
+        }
+
+        function getCookie(name) {
+            const nameEQ = name + "=";
+            const ca = document.cookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
+        function applyTheme(theme) {
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+            updateToggleButton(theme);
+            if (typeof initParticles === 'function') initParticles();
+        }
+
+        function updateToggleButton(theme) {
+            const toggle = document.getElementById('theme-toggle');
+            if (!toggle) return;
+            const icon = toggle.querySelector('i');
+            if (theme === 'dark') {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        }
+
+        // Initialize Theme
+        const savedTheme = getCookie('theme') || 'light';
+        applyTheme(savedTheme);
+
+        document.getElementById('theme-toggle').addEventListener('click', () => {
+            const isDark = document.documentElement.classList.contains('dark');
+            const newTheme = isDark ? 'light' : 'dark';
+            applyTheme(newTheme);
+            setCookie('theme', newTheme, 30);
         });
     </script>
 </body>
