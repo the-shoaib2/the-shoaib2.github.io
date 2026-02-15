@@ -108,7 +108,6 @@
                     <div class="profile-img-container floating">
                         <img src="" alt="Profile" id="hero-img">
                     </div>
-                    <!-- Removed the visual-card for a cleaner look with the photo, or can keep it small. Let's just swap for photo as it's more personal. -->
                 </div>
             </div>
         </section>
@@ -196,7 +195,10 @@
         <!-- Footer -->
         <footer class="footer">
             <div class="container footer-content">
-                <p id="footer-text"></p>
+                <div class="footer-social" id="footer-social">
+                    <!-- Social links injected here -->
+                </div>
+                <p id="footer-text" class="footer-text"></p>
             </div>
         </footer>
     </div> <!-- End .scroll-container -->
@@ -205,14 +207,11 @@
         document.addEventListener('DOMContentLoaded', () => {
             const loader = document.getElementById('loader');
 
-            // Custom Cursor Logic Removed for Speed
-            // Magnetic Buttons Logic Removed for Speed
-
             // Fetch Data
             fetch('data.json')
                 .then(response => response.json())
                 .then(data => {
-                    populateSite(data.site);
+                    populateSite(data.site, data.profile); // Pass profile for footer socials
                     populateHero(data.profile);
                     populateAbout(data.about);
                     populateSkills(data.skills);
@@ -260,8 +259,6 @@
                 });
             });
 
-            // Magnetic Buttons Removed
-
             // Ripple Effect for Buttons
             document.querySelectorAll('.ripple').forEach(btn => {
                 btn.addEventListener('click', function (e) {
@@ -278,7 +275,7 @@
             });
         });
 
-        function populateSite(site) {
+        function populateSite(site, profile) { // Pass profile data too
             document.getElementById('site-title').textContent = site.title;
 
             const logo = document.getElementById('site-logo');
@@ -303,6 +300,17 @@
             });
 
             document.getElementById('footer-text').innerHTML = site.footer;
+
+            // Populate Footer Socials (from profile data)
+            const footerSocial = document.getElementById('footer-social');
+            if (footerSocial && profile && profile.social) {
+                profile.social.forEach(link => {
+                    const a = document.createElement('a');
+                    a.href = link.url;
+                    a.innerHTML = `<i class="${link.icon}"></i>`;
+                    footerSocial.appendChild(a);
+                });
+            }
         }
 
         function populateHero(profile) {
@@ -533,18 +541,6 @@
             }
         });
 
-        // Inertial Scroll Logic - DISABLED for Native Scroll
-        const scrollContainer = document.getElementById('scroll-container');
-        // const scrollbarThumb = document.getElementById('scrollbar-thumb');
-        // const scrollbarTrack = document.getElementById('scrollbar-track');
-
-        // let currentScroll = 0;
-        // let targetScroll = 0;
-        // const ease = 0.2; 
-        // let scrollTimeout;
-
-        // ... (Height setting removed) ...
-
         // Logic for Smart Sticky Header
         const header = document.querySelector('.header');
 
@@ -583,8 +579,6 @@
                 }
             });
         });
-
-        // smoothScroll(); // DISABLED
 
         // Intersection Observer for Scroll Animations
         function initAnimations() {

@@ -148,7 +148,7 @@
     ],
     "contact": {
         "location": "New York, USA",
-        "email": "hello@example.com",
-        "phone": "+1 234 567 890"
+        "email": "[EMAIL_ADDRESS]",
+        "phone": "[PHONE_NUMBER]"
     }
 }
