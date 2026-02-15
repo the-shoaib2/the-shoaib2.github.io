@@ -301,7 +301,6 @@ img {
 .social-links a,
 .form-group input,
 .form-group textarea {
-    border: var(--glass-border);
     background: var(--glass-bg) !important;
     backdrop-filter: var(--glass-backdrop);
     -webkit-backdrop-filter: var(--glass-backdrop);
@@ -578,7 +577,6 @@ img {
 }
 
 .social-links a:hover {
-    /* transform: translateY(-1px); */
     background: rgba(66, 133, 244, 0.08);
     color: var(--google-blue);
 }
@@ -938,9 +936,9 @@ img {
 .form-group textarea {
     width: 100%;
     padding: 16px 20px;
-    border: 1px solid var(--border);
+    border: 2px solid var(--border);
     border-radius: 12px;
-    background: var(--muted);
+    /* background: var(--muted); */
     color: var(--text-color);
     font-family: var(--font-body);
     font-size: 1.05rem;
@@ -969,6 +967,11 @@ img {
     margin-top: 10px;
     padding: 16px;
     font-size: 1.1rem;
+}
+
+#submit-btn:hover {
+    background-color: rgba(66, 133, 244, 0.08);
+    color: var(--google-blue);
 }
 
 .contact-status {
@@ -1037,12 +1040,12 @@ img {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    /* gap: 10px; */
 }
 
 .footer-social {
     display: flex;
-    gap: 20px;
+    gap: 10px;
     margin-bottom: 20px;
 }
 
@@ -1052,17 +1055,16 @@ img {
     justify-content: center;
     width: 40px;
     height: 40px;
-    border: 1px solid var(--border-color);
+    border: none;
     border-radius: 50%;
-    background: #fff;
+    background: transparent;
     color: var(--text-secondary);
     font-size: 1.2rem;
-    transition: all 0.3s ease;
+    transition: all 0.3s var(--easing-standard);
 }
 
 .footer-social a:hover {
     transform: translateY(-3px);
-    border-color: var(--google-blue);
     background: rgba(66, 133, 244, 0.08);
     color: var(--google-blue);
 }
@@ -1233,10 +1235,10 @@ img {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 36px;
-    height: 36px;
+    width: 25px;
+    height: 25px;
     margin-left: auto;
-    border: 1px solid var(--border);
+    border: none;
     border-radius: 50%;
     background: var(--white);
     color: var(--black);
@@ -1247,11 +1249,10 @@ img {
 }
 
 .theme-toggle:hover {
-    transform: scale(1.1);
     background: var(--google-blue);
     border-color: var(--google-blue);
     color: var(--white);
-    box-shadow: 0 4px 12px rgba(66, 133, 244, 0.3);
+    box-shadow: var(--shadow-sm);
 }
 
 :root.dark .theme-toggle {
@@ -1424,7 +1425,7 @@ img {
 
     .profile-img-container {
         width: 350px;
-        height: 450px;
+        height: 350px;
         margin: 0 auto;
     }
 }
@@ -1486,7 +1487,6 @@ img {
         width: 220px;
         height: 220px;
         margin: 0 auto;
-        border-radius: 40px;
     }
 
     .hero-visual {
@@ -1554,7 +1554,6 @@ img {
     .profile-img-container {
         width: 240px;
         height: 240px;
-        border-radius: 30px;
     }
 }
 
@@ -1575,7 +1574,7 @@ img {
 @media (max-width: 768px) {
     .footer-content {
         flex-direction: column;
-        gap: 20px;
+        gap: 10px;
         text-align: center;
     }
 

@@ -203,10 +203,10 @@
                     <a href="terms.html">Terms of Service</a>
                     <span class="separator">•</span>
                     <a href="privacy.html">Privacy Policy</a>
+                    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Theme">
+                        <i class="fa-solid fa-sun"></i>
+                    </button>
                 </div>
-                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Theme">
-                    <i class="fa-solid fa-moon"></i>
-                </button>
             </div>
         </footer>
     </div>
@@ -832,11 +832,11 @@
             if (!toggle) return;
             const icon = toggle.querySelector('i');
             if (theme === 'dark') {
-                icon.classList.remove('fa-moon');
-                icon.classList.add('fa-sun');
-            } else {
                 icon.classList.remove('fa-sun');
                 icon.classList.add('fa-moon');
+            } else {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
             }
         }
 
