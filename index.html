@@ -235,7 +235,7 @@
                 })
                 .catch(error => {
                     console.error('Error loading data:', error);
-                    if (loader) loader.innerHTML = '<p style="color:#000; text-align:center; padding-top: 20px;">Error loading content. Please check your data.json file.</p>';
+                    if (loader) loader.innerHTML = '<p style="color:var(--black); text-align:center; padding-top: 20px;">Error loading content. Please check your data.json file.</p>';
                 })
                 .finally(() => {
                     setTimeout(() => {

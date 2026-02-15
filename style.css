@@ -1,51 +1,135 @@
 :root {
-    --bg-color: #ffffff;
-    --bg-secondary: #f8f9fa;
-    --border-color: #dadce0;
-    --card-bg: rgba(255, 255, 255, 0.8);
+    /* Base Colors - Primitives */
+    --white: #ffffff;
+    --black: #000000;
+    --gray-50: #f8f9fa;
+    --gray-100: #f1f3f4;
+    --gray-200: #e8eaed;
+    --gray-300: #dadce0;
+    --gray-400: #bdc1c6;
+    --gray-600: #5f6368;
+    --gray-700: #3c4043;
+    --gray-800: #202124;
+    --gray-900: #171717;
+
+    /* Semantic Colors - Light Mode (Default) */
+    --background: #ffffff;
+    --foreground: #202124;
+
+    --card: rgba(255, 255, 255, 0.8);
+    --card-foreground: #202124;
+
+    --popover: #ffffff;
+    --popover-foreground: #202124;
+
+    --primary: #000000;
+    --primary-foreground: #ffffff;
+
+    --secondary: #f8f9fa;
+    --secondary-foreground: #5f6368;
+
+    --muted: #f1f3f4;
+    --muted-foreground: #5f6368;
+
+    --accent: #f1f3f4;
+    --accent-foreground: #000000;
+
+    --destructive: #ff0000;
+    --destructive-foreground: #ffffff;
+
+    --border: #dadce0;
+    --input: #dadce0;
+    --ring: #000000;
+
+    /* Legacy Variables Mapped to New Semantic ones where possible */
+    --bg-color: var(--background);
+    --bg-secondary: var(--secondary);
+    --border-color: var(--border);
+    --card-bg: var(--card);
+    --text-color: var(--foreground);
+    --text-secondary: var(--muted-foreground);
+    --primary-color: var(--primary);
+    --primary-dark: var(--primary);
+    --secondary-color: var(--gray-600);
+    /* Kept specific for now */
+    --tertiary-color: var(--gray-300);
+    --surface-variant: var(--muted);
+
+    /* Layout & Effects */
     --container-width: 1200px;
+    --header-height: 60px;
+
+    /* Animations */
     --easing-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1.0);
     --easing-emphasized: cubic-bezier(0.2, 0.0, 0, 1.0);
     --easing-standard: cubic-bezier(0.2, 0.0, 0, 1.0);
+    --transition: all 0.5s var(--easing-standard);
+
+    /* Fonts */
     --font-body: 'Outfit', sans-serif;
     --font-heading: 'Space Grotesk', sans-serif;
+
+    /* Glassmorphism */
     --glass-backdrop: blur(20px) saturate(180%);
     --glass-bg: rgba(255, 255, 255, 0.9);
     --glass-border: 1px solid rgba(0, 0, 0, 0.05);
     --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
-    --header-height: 60px;
-    --primary-color: #000000;
-    --primary-dark: #000000;
-    --secondary-color: #5f6368;
-    --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.7);
-    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.5);
+
+    /* Shadows */
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-    --surface-variant: #f1f3f4;
-    --tertiary-color: #dadce0;
-    --text-color: #202124;
-    --text-secondary: #5f6368;
-    --transition: all 0.5s var(--easing-standard);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.7);
 }
 
 :root.dark {
-    --bg-color: #0b0b0b;
-    --bg-secondary: #161616;
-    --border-color: #3c4043;
-    --card-bg: rgba(30, 30, 30, 0.8);
-    --glass-backdrop: blur(20px) saturate(180%);
+    /* Semantic Colors - Dark Mode */
+    --background: #0b0b0b;
+    --foreground: #e8eaed;
+
+    --card: rgba(30, 30, 30, 0.8);
+    --card-foreground: #e8eaed;
+
+    --popover: #161616;
+    --popover-foreground: #e8eaed;
+
+    --primary: #ffffff;
+    --primary-foreground: #000000;
+
+    --secondary: #161616;
+    --secondary-foreground: #9aa0a6;
+
+    --muted: #202124;
+    --muted-foreground: #9aa0a6;
+
+    --accent: #3c4043;
+    --accent-foreground: #ffffff;
+
+    --border: #3c4043;
+    --input: #3c4043;
+    --ring: #d0d0d0;
+
+    /* Re-map Legacy Variables for Dark Mode */
+    --bg-color: var(--background);
+    --bg-secondary: var(--secondary);
+    --border-color: var(--border);
+    --card-bg: var(--card);
+    --text-color: var(--foreground);
+    --text-secondary: var(--muted-foreground);
+    --primary-color: var(--primary);
+    --primary-dark: var(--primary);
+    --secondary-color: var(--gray-400);
+    --tertiary-color: var(--border);
+    --surface-variant: var(--muted);
+
+    /* Glassmorphism Dark */
     --glass-bg: rgba(25, 25, 25, 0.8);
     --glass-border: 1px solid rgba(255, 255, 255, 0.08);
     --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
-    --primary-color: #ffffff;
-    --primary-dark: #ffffff;
-    --secondary-color: #9aa0a6;
-    --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.9);
-    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.7);
+
+    /* Shadows Dark */
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
-    --surface-variant: #202124;
-    --tertiary-color: #3c4043;
-    --text-color: #e8eaed;
-    --text-secondary: #9aa0a6;
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.7);
+    --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.9);
 }
 
 /* Global & Reset */
@@ -138,15 +222,13 @@ img {
 
 .section-header {
     opacity: 0;
-    transform: translateY(40px);
     margin-bottom: 80px;
     text-align: left;
-    transition: opacity 1s var(--easing-decelerate), transform 1s var(--easing-decelerate);
+    transition: opacity 1s var(--easing-decelerate);
 }
 
 .section-header.active {
     opacity: 1;
-    transform: translateY(0);
 }
 
 .section-subtitle {
@@ -222,14 +304,12 @@ img {
 
 .reveal {
     opacity: 0;
-    transform: translateY(60px) scale(0.98);
-    transition: opacity 1s var(--easing-decelerate), transform 1s var(--easing-decelerate);
-    will-change: opacity, transform;
+    transition: opacity 1s var(--easing-decelerate);
+    will-change: opacity;
 }
 
 .reveal.active {
     opacity: 1;
-    transform: translateY(0) scale(1);
 }
 
 .magnetic {
@@ -371,7 +451,7 @@ img {
 
 .title {
     margin-bottom: 30px;
-    background: linear-gradient(135deg, #000000 0%, #5f6368 100%);
+    background: linear-gradient(135deg, var(--black) 0%, var(--gray-600) 100%);
     color: var(--text-color);
     font-family: var(--font-heading);
     font-size: 6rem;
@@ -417,9 +497,9 @@ img {
     width: 350px;
     max-width: 80vw;
     height: 350px;
-    border: 4px solid #fff;
+    border: 4px solid var(--white);
     border-radius: 50%;
-    background: #ffffff;
+    background: var(--white);
     box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.05);
     transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
     cursor: pointer;
@@ -487,24 +567,24 @@ img {
 
 .btn-primary {
     border: none;
-    background: #000000;
-    color: #ffffff;
+    background: var(--primary);
+    color: var(--primary-foreground);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .btn-primary:hover {
-    background: #202124;
+    background: var(--gray-800);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
 .btn-outline {
     border: 1px solid rgba(0, 0, 0, 0.2);
     background: transparent;
-    color: #000000;
+    color: var(--primary);
 }
 
 .btn-outline:hover {
-    border-color: #000000;
+    border-color: var(--primary);
     background: rgba(0, 0, 0, 0.05);
 }
 
@@ -616,9 +696,9 @@ img {
 
 .skill-tag {
     padding: 6px 16px;
-    border: 1px solid #e8eaed;
+    border: 1px solid var(--gray-200);
     border-radius: 100px;
-    background: #f8f9fa;
+    background: var(--gray-50);
     color: var(--text-color);
     font-size: 0.85rem;
     font-weight: 500;
@@ -626,9 +706,9 @@ img {
 }
 
 .skill-tag:hover {
-    border-color: #000;
-    background: #000;
-    color: #fff;
+    border-color: var(--black);
+    background: var(--black);
+    color: var(--white);
 }
 
 .portfolio-grid {
@@ -721,8 +801,8 @@ img {
 .tech-tag {
     padding: 4px 12px;
     border-radius: 100px;
-    background: #f1f3f4;
-    color: #5f6368;
+    background: var(--muted);
+    color: var(--muted-foreground);
     font-size: 0.7rem;
     font-weight: 500;
 }
@@ -737,7 +817,7 @@ img {
     display: flex;
     align-items: center;
     gap: 6px;
-    color: #000;
+    color: var(--primary);
     font-size: 0.9rem;
     font-weight: 600;
     transition: opacity 0.2s;
@@ -902,9 +982,9 @@ img {
 
 .footer-social a:hover {
     transform: translateY(-3px);
-    border-color: #000;
-    background: #000;
-    color: #fff;
+    border-color: var(--black);
+    background: var(--black);
+    color: var(--white);
 }
 
 .footer-text {
@@ -1044,7 +1124,7 @@ img {
     justify-content: center;
     width: 100%;
     height: 100vh;
-    background: #ffffff;
+    background: var(--white);
     transition: opacity 0.5s ease;
 }
 
@@ -1065,7 +1145,7 @@ img {
 @keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(80px);
+        transform: translateY(0);
     }
 
     to {
@@ -1077,7 +1157,7 @@ img {
 @keyframes fadeInLeft {
     from {
         opacity: 0;
-        transform: translateX(40px);
+        transform: translateX(0);
     }
 
     to {
@@ -1108,7 +1188,7 @@ img {
 @keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(-5px);
+        transform: translateY(0);
     }
 
     to {
