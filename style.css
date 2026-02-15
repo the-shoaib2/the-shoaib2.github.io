@@ -358,7 +358,6 @@ img {
     display: inline-block;
     color: var(--text-secondary);
     font-size: 1.3rem;
-    /* Reduced to 1.3rem */
     font-weight: 500;
     margin-bottom: 20px;
 }
@@ -366,14 +365,11 @@ img {
 .title {
     font-family: var(--font-heading);
     font-size: 6rem;
-    /* Slightly larger */
     line-height: 0.95;
     margin-bottom: 30px;
     font-weight: 700;
     color: var(--text-color);
     letter-spacing: -3px;
-    /* Tighter tracking */
-    /* Text Gradient Clip (Black to Grey) */
     background: linear-gradient(135deg, #000000 0%, #5f6368 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -383,7 +379,6 @@ img {
     color: var(--text-secondary);
     margin-bottom: 30px;
     font-size: 1.5rem;
-    /* Larger, more readable */
     max-width: 600px;
     line-height: 1.5;
     font-weight: 400;
@@ -402,9 +397,7 @@ img {
     justify-content: center;
     align-items: center;
     padding: 10px 24px;
-    /* Reduced */
     border-radius: 100px;
-    /* Fully rounded */
     font-weight: 500;
     cursor: pointer;
     transition: var(--transition);
@@ -482,7 +475,6 @@ img {
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    /* Background handled by unified glass class */
 }
 
 .social-links a:hover {
@@ -507,26 +499,20 @@ img {
     z-index: 2;
     width: 350px;
     height: 350px;
-    /* Explicit height for 1:1 ratio */
     max-width: 80vw;
     border-radius: 50%;
-    /* Perfect Circle */
-    -webkit-border-radius: 50%;
     overflow: hidden;
     cursor: pointer;
-    /* Clean, premium shadow */
     box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.05);
     background: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
     transform: translateZ(0);
-    /* Fix for Safari overflow:hidden */
     -webkit-mask-image: -webkit-radial-gradient(white, black);
     /* Fix for Safari border-radius clipping */
     transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
     border: 4px solid #fff;
-    /* White border for that "sticker" look */
 }
 
 .profile-img-container:hover {
@@ -538,7 +524,6 @@ img {
     .profile-img-container {
         width: 220px;
         height: 220px;
-        /* Explicit height for 1:1 ratio on mobile */
         margin: 0 auto;
     }
 
@@ -577,7 +562,6 @@ img {
     height: 100%;
     object-fit: cover;
     border-radius: 50%;
-    /* Force circle on image itself */
     transition: transform 0.8s var(--easing-standard);
 }
 
@@ -814,7 +798,6 @@ img {
 
 .no-image .img-fallback::after {
     content: '\f03e';
-    /* FontAwesome image icon */
     font-family: 'Font Awesome 6 Free';
     font-weight: 900;
     font-size: 2.5rem;
@@ -855,7 +838,6 @@ img {
     background: #f1f3f4;
     padding: 4px 12px;
     border-radius: 100px;
-    /* Fully rounded */
     color: #5f6368;
     font-weight: 500;
 }
@@ -929,7 +911,6 @@ img {
 /* Footer */
 .footer {
     background: #f8f9fa;
-    /* Light grey background */
     padding: 60px 0 40px;
     margin-top: 100px;
     border-top: 1px solid var(--border-color);
@@ -1005,7 +986,6 @@ img {
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    /* Background handled by unified glass class */
 }
 
 .social-links a {
@@ -1018,7 +998,6 @@ img {
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    /* Background handled by unified glass class */
 }
 
 .info-item h4 {
@@ -1052,7 +1031,6 @@ img {
 .form-group textarea {
     width: 100%;
     background: #f8f9fa !important;
-    /* Muted background */
     border: 1px solid #dadce0 !important;
     padding: 16px 20px;
     color: var(--text-color);
@@ -1122,9 +1100,7 @@ img {
 .footer {
     padding: 60px 0;
     background: transparent;
-    /* Was #f5f5f7 */
     border-top: none;
-    /* Removed border */
     text-align: center;
 }
 
@@ -1174,7 +1150,6 @@ img {
 
     .stats {
         justify-items: center;
-        /* Center stats in grid if single column */
         text-align: center;
     }
 
@@ -1194,19 +1169,16 @@ img {
         width: 350px;
         height: 450px;
         margin: 0 auto;
-        /* Center image */
     }
 }
 
 @media (max-width: 768px) {
     .section {
         padding: 80px 0;
-        /* Reduced padding */
     }
 
     .container {
         padding: 0 24px;
-        /* Reduced container padding */
     }
 
     .navbar {
@@ -1251,21 +1223,15 @@ img {
     .section-header {
         margin-bottom: 40px;
         text-align: center;
-        /* Center section headers on mobile */
     }
 
-    /* Mobile Image - Rounded Square */
     .profile-img-container {
         width: 280px;
         height: 280px;
-        /* Square */
         border-radius: 40px;
-        /* Rounded Square Shape */
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        /* Lighter shadow for mobile */
     }
 
-    /* Adjust portfolio grid for mobile */
     .portfolio-grid {
         grid-template-columns: 1fr;
     }
@@ -1278,13 +1244,11 @@ img {
         padding: 10px 20px;
         font-size: 0.95rem;
         width: 100%;
-        /* Full width buttons on very small screens? allow flex to handle */
         justify-content: center;
     }
 
     .hero-btns {
         flex-direction: row;
-        /* Keep side by side if possible, or wrap */
         flex-wrap: wrap;
     }
 }
@@ -1310,7 +1274,6 @@ img {
     }
 }
 
-/* Image Modal Styles */
 .image-modal {
     position: fixed;
     top: 0;
@@ -1408,7 +1371,6 @@ img {
 
 }
 
-/* Loader Styles */
 body.loading {
     overflow: hidden;
 }
