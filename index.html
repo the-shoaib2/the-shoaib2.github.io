@@ -410,8 +410,8 @@
         let particles = [];
         const particleCount = 200; // Reduced for cleaner look
 
-        // Dark Theme Palette (White/Grey/Blue-ish)
-        const colors = ['rgba(255, 255, 255, 0.8)', 'rgba(255, 255, 255, 0.5)', 'rgba(138, 180, 248, 0.6)', 'rgba(255, 255, 255, 0.2)'];
+        // Light Theme Palette (Dark Grey/Black)
+        const colors = ['rgba(0, 0, 0, 0.8)', 'rgba(0, 0, 0, 0.5)', 'rgba(32, 33, 36, 0.6)', 'rgba(0, 0, 0, 0.2)'];
 
         const mouse = {
             x: null,
@@ -533,59 +533,26 @@
             }
         });
 
-        // Inertial Scroll Logic
+        // Inertial Scroll Logic - DISABLED for Native Scroll
         const scrollContainer = document.getElementById('scroll-container');
-        const scrollbarThumb = document.getElementById('scrollbar-thumb');
-        const scrollbarTrack = document.getElementById('scrollbar-track');
+        // const scrollbarThumb = document.getElementById('scrollbar-thumb');
+        // const scrollbarTrack = document.getElementById('scrollbar-track');
 
-        let currentScroll = 0;
-        let targetScroll = 0;
-        const ease = 0.2; // Maximum responsiveness (was 0.12)
-        let scrollTimeout;
+        // let currentScroll = 0;
+        // let targetScroll = 0;
+        // const ease = 0.2; 
+        // let scrollTimeout;
 
-        // Set initial height
-        setTimeout(() => {
-            if (scrollContainer) {
-                document.body.style.height = `${scrollContainer.getBoundingClientRect().height}px`;
-            }
-        }, 1000);
-
-        function updateScrollbar() {
-            if (!scrollbarThumb || !scrollContainer) return;
-
-            const windowHeight = window.innerHeight;
-            const contentHeight = scrollContainer.getBoundingClientRect().height;
-            const trackHeight = windowHeight - 8; // built-in padding
-
-            // Calculate thumb height ratio
-            const scrollRatio = windowHeight / contentHeight;
-            const thumbHeight = Math.max(scrollRatio * trackHeight, 30); // Min height 30px
-
-            scrollbarThumb.style.height = `${thumbHeight}px`;
-
-            // Calculate thumb position
-            // We use currentScroll instead of window.scrollY to match the smooth content
-            const scrollPercent = currentScroll / (contentHeight - windowHeight);
-            const thumbY = scrollPercent * (trackHeight - thumbHeight);
-
-            scrollbarThumb.style.transform = `translateY(${thumbY}px)`;
-        }
+        // ... (Height setting removed) ...
 
         // Logic for Smart Sticky Header
-        let lastScrollTop = 0;
         const header = document.querySelector('.header');
 
-        function smoothScroll() {
-            targetScroll = window.scrollY;
-            currentScroll += (targetScroll - currentScroll) * ease;
+        // function smoothScroll() { ... } // DISABLED
 
-            // Apply transform
-            if (scrollContainer) {
-                scrollContainer.style.transform = `translateY(-${currentScroll}px)`;
-            }
-
-            // Sync Scrollbar
-            updateScrollbar();
+        // Native Scroll Handler
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.scrollY;
 
             // Muted Header on Scroll
             if (header) {
@@ -600,95 +567,24 @@
             const sections = document.querySelectorAll('section');
             const navLi = document.querySelectorAll('.navbar a');
 
-            window.addEventListener('scroll', () => {
-                let current = '';
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop;
-                    const sectionHeight = section.clientHeight;
-                    // Trigger when 1/3 into the section
-                    if (window.scrollY >= (sectionTop - sectionHeight / 3)) {
-                        current = section.getAttribute('id');
-                    }
-                });
-
-                navLi.forEach(a => {
-                    a.classList.remove('active');
-                    if (a.getAttribute('href').includes(current)) {
-                        a.classList.add('active');
-                    }
-                });
-            });
-
-            // Smart Header Logic REMOVED for permanent visibility
-            // if (header) {
-            //     const scrollTop = window.scrollY || document.documentElement.scrollTop;
-            //     // If scrolling down and not at the top
-            //     if (scrollTop > lastScrollTop && scrollTop > 50) {
-            //         header.classList.add('hidden');
-            //     } else {
-            //         // Scrolling up or at the top
-            //         header.classList.remove('hidden');
-            //     }
-            //     lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-            // }
-
-            // Show scrollbar on movement
-            if (Math.abs(targetScroll - currentScroll) > 0.1) {
-                document.body.classList.add('scrolling');
-                clearTimeout(scrollTimeout);
-                scrollTimeout = setTimeout(() => {
-                    document.body.classList.remove('scrolling');
-                }, 1000);
-            }
-
-            requestAnimationFrame(smoothScroll);
-        }
-
-        // Wait for data populate to set height dynamically
-        if (scrollContainer) {
-            const observerForHeight = new MutationObserver(() => {
-                document.body.style.height = `${scrollContainer.getBoundingClientRect().height}px`;
-            });
-            observerForHeight.observe(scrollContainer, { childList: true, subtree: true, attributes: true });
-        }
-
-        // Global Smooth Scroll Handler
-        document.addEventListener('click', (e) => {
-            const link = e.target.closest('a[href^="#"]');
-            if (link) {
-                e.preventDefault();
-                const id = link.getAttribute('href');
-                if (id === '#' || !id) return;
-
-                const targetElement = document.querySelector(id);
-                if (targetElement) {
-                    // Since scroll-container is fixed, offsetTop provides the correct scroll destination
-                    const targetPosition = targetElement.offsetTop;
-
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
-
-                    // Update URL without jump
-                    history.pushState(null, null, id);
-
-                    // Close mobile menu if open
-                    const navbar = document.querySelector('.navbar');
-                    const mobileToggle = document.querySelector('.mobile-toggle');
-                    if (navbar && navbar.classList.contains('active')) {
-                        navbar.classList.remove('active');
-                        const icon = mobileToggle.querySelector('i');
-                        if (icon) {
-                            icon.classList.remove('fa-xmark');
-                            icon.classList.add('fa-bars');
-                        }
-                    }
+            let currentSection = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.scrollY >= (sectionTop - sectionHeight / 3)) {
+                    currentSection = section.getAttribute('id');
                 }
-            }
+            });
+
+            navLi.forEach(a => {
+                a.classList.remove('active');
+                if (a.getAttribute('href').includes(currentSection)) {
+                    a.classList.add('active');
+                }
+            });
         });
 
-        smoothScroll();
+        // smoothScroll(); // DISABLED
 
         // Intersection Observer for Scroll Animations
         function initAnimations() {
