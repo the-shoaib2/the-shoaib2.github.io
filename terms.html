@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="site-title">Loading...</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .policy-container {
+            max-width: 800px;
+            margin: 120px auto 60px;
+            padding: 0 40px;
+        }
+
+        .policy-content h1 {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            letter-spacing: -1.5px;
+        }
+
+        .policy-content h2 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem;
+            color: var(--text-color);
+        }
+
+        .policy-content p {
+            margin-bottom: 1.2rem;
+            color: var(--text-secondary);
+        }
+
+        .back-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 2rem;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo" id="site-logo">Dev<span>Portfolio.</span></a>
+            <nav class="navbar">
+                <a href="index.html">Home</a>
+            </nav>
+        </div>
+    </header>
+
+    <script>
+        fetch('data.json')
+            .then(response => response.json())
+            .then(data => {
+                const site = data.site;
+                const policy = site.policies.terms;
+
+                // Update Metadata
+                document.title = policy.title;
+                document.getElementById('policy-title').textContent = policy.heading;
+                document.getElementById('last-updated').textContent = `Last updated: ${policy.lastUpdated}`;
+
+                // Update Logo
+                const logo = document.getElementById('site-logo');
+                logo.innerHTML = `${site.logo.text}<span>${site.logo.span}</span>`;
+            });
+    </script>
+
+    <main class="policy-container reveal active">
+        <a href="index.html" class="back-home"><i class="fa-solid fa-arrow-left"></i> Back to Home</a>
+        <div class="policy-content">
+            <h1 id="policy-title">Terms of Service</h1>
+            <p id="last-updated">Last updated: February 15, 2026</p>
+
+            <h2>1. Agreement to Terms</h2>
+            <p>By accessing or using this website, you agree to be bound by these Terms of Service and all applicable
+                laws and regulations.</p>
+
+            <h2>2. Intellectual Property</h2>
+            <p>The content, original features, and functionality of this portfolio are and will remain the exclusive
+                property of MD Shoaib Khan.</p>
+
+            <h2>3. Limitation of Liability</h2>
+            <p>In no event shall MD Shoaib Khan be liable for any indirect, incidental, special, consequential or
+                punitive damages resulting from your use of the site.</p>
+
+            <h2>4. Changes to Terms</h2>
+            <p>I reserve the right to modify or replace these terms at any time. Your continued use of the site after
+                changes constitutes acceptance of the new terms.</p>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-content">
+            <p>&copy; 2026 MD Shoaib Khan. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

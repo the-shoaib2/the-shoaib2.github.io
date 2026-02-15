@@ -16,6 +16,9 @@
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
     <link rel="stylesheet" href="style.css">
     <style>
         /* Loader styles to hide content until loaded */
@@ -169,24 +172,35 @@
                     <div class="contact-info" id="contact-info">
                         <!-- Contact info injected here -->
                     </div>
-                    <form class="contact-form">
+                    <form class="contact-form" id="contact-form">
+                        <!-- Security honey-pot -->
+                        <div style="display:none;">
+                            <input type="text" name="honey_pot" id="honey-pot">
+                        </div>
+
                         <div class="form-group">
                             <label class="floating-label">Name</label>
-                            <input type="text" required>
+                            <input type="text" id="contact-name" name="user_name" required placeholder="John Doe">
                         </div>
                         <div class="form-group">
                             <label class="floating-label">Email</label>
-                            <input type="email" required>
+                            <input type="email" id="contact-email" name="user_email" required
+                                placeholder="john@example.com">
                         </div>
                         <div class="form-group">
                             <label class="floating-label">Subject</label>
-                            <input type="text">
+                            <input type="text" id="contact-subject" name="subject" placeholder="Project Inquiry">
                         </div>
                         <div class="form-group">
                             <label class="floating-label">Message</label>
-                            <textarea rows="5" required></textarea>
+                            <textarea id="contact-message" name="message" rows="5" required
+                                placeholder="How can I help you?"></textarea>
                         </div>
-                        <button type="button" class="btn btn-primary ripple">Send Message</button>
+                        <div id="contact-status" class="contact-status"></div>
+                        <button type="submit" class="btn btn-primary ripple" id="submit-btn">
+                            <i class="fa-solid fa-paper-plane"></i>
+                            <span>Send Message</span>
+                        </button>
                     </form>
                 </div>
             </div>
@@ -199,9 +213,23 @@
                     <!-- Social links injected here -->
                 </div>
                 <p id="footer-text" class="footer-text"></p>
+                <div class="footer-links">
+                    <a href="terms.html">Terms of Service</a>
+                    <span class="separator">•</span>
+                    <a href="privacy.html">Privacy Policy</a>
+                </div>
             </div>
         </footer>
     </div> <!-- End .scroll-container -->
+
+    <!-- Image Modal -->
+    <div id="image-modal" class="image-modal">
+        <div class="modal-backdrop"></div>
+        <button class="modal-close"><i class="fa-solid fa-xmark"></i></button>
+        <div class="modal-content">
+            <img src="" alt="Profile Full" id="modal-img">
+        </div>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -265,6 +293,7 @@
                     let x = e.clientX - e.target.offsetLeft;
                     let y = e.clientY - e.target.offsetTop;
                     let ripples = document.createElement('span');
+                    ripples.classList.add('ripple-span');
                     ripples.style.left = x + 'px';
                     ripples.style.top = y + 'px';
                     this.appendChild(ripples);
@@ -332,6 +361,27 @@
                 a.innerHTML = `<i class="${link.icon}"></i>`;
                 socialContainer.appendChild(a);
             });
+
+            // Modal logic
+            const modal = document.getElementById('image-modal');
+            const modalImg = document.getElementById('modal-img');
+            const profileContainer = document.querySelector('.profile-img-container');
+
+            if (profileContainer && modal && modalImg) {
+                profileContainer.addEventListener('click', () => {
+                    const heroImg = document.getElementById('hero-img');
+                    if (heroImg && heroImg.src) {
+                        modalImg.src = heroImg.src;
+                        modal.classList.add('active');
+                        document.body.style.overflow = 'hidden'; // Prevent scroll
+                    }
+                });
+
+                modal.addEventListener('click', () => {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = ''; // Restore scroll
+                });
+            }
         }
 
         function populateAbout(about) {
@@ -544,7 +594,6 @@
         // Logic for Smart Sticky Header
         const header = document.querySelector('.header');
 
-        // function smoothScroll() { ... } // DISABLED
 
         // Native Scroll Handler
         window.addEventListener('scroll', () => {
@@ -597,6 +646,63 @@
 
             document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
         }
+        // Form Handling with EmailJS
+        (function () {
+            // REPLACE 'YOUR_PUBLIC_KEY' with your actual EmailJS public key
+            emailjs.init("YOUR_PUBLIC_KEY");
+
+            const contactForm = document.getElementById('contact-form');
+            const submitBtn = document.getElementById('submit-btn');
+            const statusMsg = document.getElementById('contact-status');
+            const honeyPot = document.getElementById('honey-pot');
+
+            if (contactForm) {
+                contactForm.addEventListener('submit', function (event) {
+                    event.preventDefault();
+
+                    // Security check: Honey-pot
+                    if (honeyPot && honeyPot.value !== "") {
+                        console.log("Bot detected");
+                        return;
+                    }
+
+                    // Reset status
+                    statusMsg.className = 'contact-status';
+                    statusMsg.textContent = '';
+
+                    // Button Loading State
+                    const originalBtnContent = submitBtn.innerHTML;
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i><span>Sending...</span>';
+
+                    // Prepare template parameters
+                    // These variables must match your EmailJS template!
+                    const templateParams = {
+                        from_name: document.getElementById('contact-name').value,
+                        from_email: document.getElementById('contact-email').value,
+                        subject: document.getElementById('contact-subject').value,
+                        message: document.getElementById('contact-message').value
+                    };
+
+                    // Send Email using EmailJS
+                    // REPLACE 'YOUR_SERVICE_ID' and 'YOUR_TEMPLATE_ID'
+                    emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
+                        .then(function () {
+                            statusMsg.classList.add('success');
+                            statusMsg.textContent = 'Message sent successfully! I will get back to you soon.';
+                            contactForm.reset();
+                        }, function (error) {
+                            console.error('EmailJS Error:', error);
+                            statusMsg.classList.add('error');
+                            statusMsg.textContent = 'Failed to send message. Please try again or contact me directly.';
+                        })
+                        .finally(function () {
+                            submitBtn.disabled = false;
+                            submitBtn.innerHTML = originalBtnContent;
+                        });
+                });
+            }
+        })();
     </script>
 </body>
 

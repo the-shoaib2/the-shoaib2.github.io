@@ -45,7 +45,19 @@
                 "title": "Contact Me"
             }
         },
-        "footer": "&copy; 2024 MD Shoaib Khan. All rights reserved."
+        "footer": "&copy; 2026 MD Shoaib Khan. All rights reserved.",
+        "policies": {
+            "terms": {
+                "title": "Terms of Service | MD Shoaib Khan",
+                "heading": "Terms of Service",
+                "lastUpdated": "February 15, 2026"
+            },
+            "privacy": {
+                "title": "Privacy Policy | MD Shoaib Khan",
+                "heading": "Privacy Policy",
+                "lastUpdated": "February 15, 2026"
+            }
+        }
     },
     "profile": {
         "name": "MD Shoaib Khan",
