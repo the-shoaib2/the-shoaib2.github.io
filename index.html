@@ -185,6 +185,7 @@
 
         <!-- Footer -->
         <footer class="footer">
+            <div id="footer-big-logo" class="footer-big-logo"></div>
             <div class="container footer-content">
                 <div class="footer-social" id="footer-social">
                     <!-- Social links injected dynamically -->
@@ -299,6 +300,7 @@
         function populateSite(site, profile) {
             document.getElementById('site-title').textContent = site.title;
             const logo = document.getElementById('site-logo');
+            const bigLogo = document.getElementById('footer-big-logo');
             const logoText = site.logo.text;
             let charIndex = 0;
             const coloredText = logoText.split('').map(char => {
@@ -306,7 +308,10 @@
                 charIndex++;
                 return `<span class="logo-char-${charIndex}">${char}</span>`;
             }).join('');
-            logo.innerHTML = `<img src="public/images/favicon.ico" alt="Icon" class="logo-icon"> <div>${coloredText}<span>${site.logo.span}</span></div>`;
+
+            const logoHTML = `<img src="public/images/favicon.ico" alt="Icon" class="logo-icon"> <div>${coloredText}<span>${site.logo.span.replace(/\.$/, '<span class="logo-dot">.</span>')}</span></div>`;
+            logo.innerHTML = logoHTML;
+            if (bigLogo) bigLogo.innerHTML = coloredText + `<span>${site.logo.span.replace(/\.$/, '<span class="logo-dot">.</span>')}</span>`;
 
             const nav = document.getElementById('site-nav');
             site.nav.forEach((item, index) => {
