@@ -734,6 +734,34 @@
                 });
             }
         }
+
+        /**************************************************************************
+         * SECTION FADE-BLUR ANIMATIONS
+         **************************************************************************/
+
+        // Initialize all sections as hidden
+        document.querySelectorAll('section').forEach(section => {
+            section.classList.add('section-hidden');
+        });
+
+        // Create intersection observer for section animations
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.remove('section-hidden');
+                    entry.target.classList.add('section-visible');
+                    sectionObserver.unobserve(entry.target); 
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px'
+        });
+
+        // Observe all sections
+        document.querySelectorAll('section').forEach(section => {
+            sectionObserver.observe(section);
+        });
     </script>
 </body>
 

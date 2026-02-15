@@ -1500,3 +1500,23 @@ img {
         border-radius: 30px;
     }
 }
+/* Section Fade-Blur Animation */
+@keyframes fadeInBlur {
+    0% {
+        opacity: 0;
+        filter: blur(10px);
+    }
+    100% {
+        opacity: 1;
+        filter: blur(0);
+    }
+}
+
+.section-hidden {
+    opacity: 0;
+    filter: blur(10px);
+}
+
+.section-visible {
+    animation: fadeInBlur 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
