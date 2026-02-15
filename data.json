@@ -186,6 +186,7 @@
                 "Docker"
             ],
             "repository": "https://github.com/the-shoaib2/ai-agent",
+            "image": "",
             "live_preview": null
         },
         {
@@ -205,6 +206,7 @@
                 "Chart.js"
             ],
             "repository": "https://github.com/the-shoaib2/Pregnify",
+            "image": "",
             "live_preview": null
         },
         {
@@ -230,6 +232,7 @@
                 "Recharts"
             ],
             "repository": "https://github.com/the-shoaib2/Super-Shop-Management",
+            "image": "",
             "live_preview": null
         },
         {
@@ -252,6 +255,7 @@
                 "Nodemailer"
             ],
             "repository": "https://github.com/the-shoaib2/meal-sphere",
+            "image": "",
             "live_preview": "https://meal-sphere.vercel.app"
         }
     ],

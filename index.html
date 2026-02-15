@@ -418,7 +418,9 @@
 
                 card.innerHTML = `
                     <div class="project-img">
-                        <div class="img-placeholder" style="background: ${gradients[index % gradients.length]};"></div>
+                        <img src="${project.image || ''}" alt="${project.name}" class="project-card-img" 
+                             onerror="this.style.display='none'; this.parentElement.classList.add('no-image');">
+                        <div class="img-fallback"></div>
                     </div>
                     <div class="project-content">
                         <h3>${project.name}</h3>
