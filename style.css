@@ -603,8 +603,8 @@ img {
 }
 
 .btn-primary:hover {
-    background: var(--google-red);
-    box-shadow: 0 8px 24px rgba(234, 67, 53, 0.2);
+    background: #202124;
+    box-shadow: 0 8px 24px rgba(32, 33, 36, 0.2);
 }
 
 .btn-outline {
