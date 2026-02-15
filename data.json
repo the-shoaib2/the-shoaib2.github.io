@@ -71,22 +71,22 @@
             },
             {
                 "icon": "fa-brands fa-linkedin-in",
-                "url": "#"
+                "url": "https://linkedin.com/in/the-shoaib2"
             },
             {
-                "icon": "fa-brands fa-twitter",
-                "url": "#"
+                "icon": "fa-brands fa-telegram",
+                "url": "https://telegram.me/the_shoaib2"
             },
             {
-                "icon": "fa-brands fa-dribbble",
-                "url": "#"
+                "icon": "fa-brands fa-instagram",
+                "url": "https://instagram.com/the.shoaib3"
             }
         ]
     },
     "about": {
         "text": [
-            "I'm a passionate developer with a keen eye for design. My journey started when I customized my first website 5 years ago. Since then, I've been hooked on the web ecosystem.",
-            "I specialize in building high-quality websites and applications that are not only visually stunning but also user-friendly and efficient."
+            "I'm a versatile developer specializing in the intersection of design and cutting-edge technology. My journey began with web customization years ago, and today I build high-performance, AI-powered solutions across multiple platforms.",
+            "I specialize in developing intelligent web ecosystems, machine learning integrations, and native Android and iOS applications. I focus on creating AI-integrated experiences that are not only visually stunning but also redefine user interaction through smart, efficient technology."
         ],
         "stats": [
             {
@@ -94,7 +94,7 @@
                 "label": "Years Experience"
             },
             {
-                "value": "50+",
+                "value": "20+",
                 "label": "Projects Completed"
             },
             {
@@ -159,8 +159,8 @@
         }
     ],
     "contact": {
-        "location": "New York, USA",
-        "email": "[EMAIL_ADDRESS]",
-        "phone": "[PHONE_NUMBER]"
+        "location": "Dhaka, Bangladesh",
+        "email": "abrohoman019@gmail.com",
+        "phone": "+8801909976166"
     }
 }

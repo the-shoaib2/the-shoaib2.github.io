@@ -188,7 +188,11 @@ img {
     background: var(--glass-bg);
     backdrop-filter: var(--glass-backdrop);
     -webkit-backdrop-filter: var(--glass-backdrop);
-    transition: all 0.3s var(--easing-standard);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.header.hidden {
+    transform: translateY(-100%);
 }
 
 .skill-card,

@@ -593,20 +593,35 @@
 
         // Logic for Smart Sticky Header
         const header = document.querySelector('.header');
-
+        let lastScrollY = window.scrollY;
 
         // Native Scroll Handler
         window.addEventListener('scroll', () => {
             const currentScroll = window.scrollY;
 
-            // Muted Header on Scroll
+            // Smart Header Logic
+            // As requested: Scroll Up -> Hide, Scroll Down -> Show
             if (header) {
+                if (currentScroll > lastScrollY && currentScroll > 50) {
+                    // Scrolling Down -> Show Header
+                    header.classList.remove('hidden');
+                } else if (currentScroll < lastScrollY && currentScroll > 50) {
+                    // Scrolling Up -> Hide Header
+                    header.classList.add('hidden');
+                } else if (currentScroll <= 50) {
+                    // At the top -> Always Show
+                    header.classList.remove('hidden');
+                }
+
+                // Muted Header Style
                 if (currentScroll > 50) {
                     header.classList.add('scrolled');
                 } else {
                     header.classList.remove('scrolled');
                 }
             }
+
+            lastScrollY = currentScroll;
 
             // Scroll Spy Logic
             const sections = document.querySelectorAll('section');
