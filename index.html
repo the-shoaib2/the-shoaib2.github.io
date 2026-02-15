@@ -231,20 +231,22 @@
                     populateProjects(data.projects);
                     populateContact(data.contact);
 
-                    // Successfully loaded - hide loader
+
+                })
+                .catch(error => {
+                    console.error('Error loading data:', error);
+                    if (loader) loader.innerHTML = '<p style="color:#000; text-align:center; padding-top: 20px;">Error loading content. Please check your data.json file.</p>';
+                })
+                .finally(() => {
                     setTimeout(() => {
-                        loader.style.opacity = '0';
+                        if (loader) loader.style.opacity = '0';
                         setTimeout(() => {
-                            loader.style.display = 'none';
+                            if (loader) loader.style.display = 'none';
                             document.body.classList.remove('loading');
                             initScrollSpy();
                             initRevealAnimations();
                         }, 500);
                     }, 800);
-                })
-                .catch(error => {
-                    console.error('Error loading data:', error);
-                    loader.innerHTML = '<p style="color:#000; text-align:center; padding-top: 20px;">Error loading content. Please check your data.json file.</p>';
                 });
 
             // Set up UI Interactivity
@@ -253,7 +255,42 @@
             initHeaderScroll();
             initImageModal();
             initContactForm();
+            initCustomScrollbar();
         });
+
+
+        function initCustomScrollbar() {
+            const thumb = document.getElementById('scrollbar-thumb');
+            const track = document.getElementById('scrollbar-track');
+            if (!thumb || !track) return;
+
+            function updateScrollbar() {
+                const docHeight = document.documentElement.scrollHeight;
+                const winHeight = window.innerHeight;
+                const scrollTop = window.scrollY || document.documentElement.scrollTop;
+
+                if (docHeight <= winHeight) {
+                    thumb.style.height = '0px';
+                    return;
+                }
+
+                const scrollPercent = scrollTop / (docHeight - winHeight);
+                const thumbHeight = Math.max(20, (winHeight / docHeight) * winHeight);
+                const maxTop = winHeight - thumbHeight;
+                const thumbTop = scrollPercent * maxTop;
+
+                thumb.style.height = `${thumbHeight}px`;
+                thumb.style.transform = `translateY(${thumbTop}px)`;
+            }
+
+            window.addEventListener('scroll', updateScrollbar);
+            window.addEventListener('resize', updateScrollbar);
+            // Update on mutation (content load)
+            const observer = new MutationObserver(updateScrollbar);
+            observer.observe(document.body, { childList: true, subtree: true });
+
+            updateScrollbar();
+        }
 
         /**************************************************************************
          * 2. DATA POPULATION FUNCTIONS
@@ -262,7 +299,7 @@
         function populateSite(site, profile) {
             document.getElementById('site-title').textContent = site.title;
             const logo = document.getElementById('site-logo');
-            logo.innerHTML = `<img src="public/images/favicon.ico" alt="Icon" class="logo-icon"> ${site.logo.text}<span>${site.logo.span}</span>`;
+            logo.innerHTML = `<img src="public/images/favicon.ico" alt="Icon" class="logo-icon"> <div>${site.logo.text}<span>${site.logo.span}</span></div>`;
 
             const nav = document.getElementById('site-nav');
             site.nav.forEach((item, index) => {
