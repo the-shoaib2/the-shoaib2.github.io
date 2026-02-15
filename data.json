@@ -103,59 +103,156 @@
             }
         ]
     },
-    "skills": [
-        {
-            "name": "HTML5",
-            "icon": "fa-brands fa-html5",
-            "desc": "Semantic markup, Accessibility"
-        },
-        {
-            "name": "CSS3",
-            "icon": "fa-brands fa-css3-alt",
-            "desc": "Flexbox, Grid, Animations"
-        },
-        {
-            "name": "JavaScript",
-            "icon": "fa-brands fa-js",
-            "desc": "ES6+, DOM Manipulation"
-        },
-        {
-            "name": "React",
-            "icon": "fa-brands fa-react",
-            "desc": "Hooks, Components, State"
-        },
-        {
-            "name": "Node.js",
-            "icon": "fa-brands fa-node",
-            "desc": "Express, REST APIs"
-        },
-        {
-            "name": "Git",
-            "icon": "fa-brands fa-git-alt",
-            "desc": "Version Control, GitHub"
-        }
-    ],
+    "skills": {
+        "programming_languages": [
+            "C",
+            "C++",
+            "Python",
+            "Java",
+            "C#",
+            "PHP",
+            "JavaScript",
+            "TypeScript",
+            "Dart"
+        ],
+        "frontend": [
+            "HTML5",
+            "CSS3",
+            "React",
+            "Vue.js",
+            "Tailwind CSS",
+            "Bootstrap"
+        ],
+        "backend_and_apis": [
+            "Node.js",
+            "Express.js",
+            "Django",
+            "Flask",
+            "Laravel",
+            "Spring Boot",
+            "GraphQL",
+            "Kafka"
+        ],
+        "mobile_development": [
+            "Android",
+            "Kotlin",
+            "Flutter",
+            "React Native"
+        ],
+        "ai_machine_learning": [
+            "TensorFlow",
+            "PyTorch",
+            "OpenCV",
+            "Scikit-learn",
+            "Pandas",
+            "Seaborn",
+            "NLP"
+        ],
+        "databases": [
+            "MySQL",
+            "PostgreSQL",
+            "MongoDB",
+            "SQLite",
+            "Redis"
+        ],
+        "devops_and_tools": [
+            "AWS",
+            "GCP",
+            "Docker",
+            "Linux",
+            "Git",
+            "Bash"
+        ],
+        "tools_and_ides": [
+            "VS Code",
+            "Firebase",
+            "Postman",
+            "Electron"
+        ],
+        "design_and_media": [
+            "Adobe Photoshop",
+            "Filmora"
+        ]
+    },
     "projects": [
         {
-            "title": "E-Commerce Platform",
-            "category": "Web Design",
-            "imageGradient": "linear-gradient(45deg, #FF6B6B, #556270)",
-            "description": "A fully functional online store with cart and checkout.",
-            "link": "#"
+            "name": "AI Agent",
+            "description": "Intelligent agent platform leveraging NLP and automation for productivity.",
+            "tech_stack": [
+                "Python",
+                "TensorFlow",
+                "PyTorch",
+                "NLP",
+                "Docker"
+            ],
+            "repository": "https://github.com/the-shoaib2/ai-agent",
+            "live_preview": null
         },
         {
-            "title": "Task Management App",
-            "category": "App Development",
-            "imageGradient": "linear-gradient(45deg, #4ECDC4, #556270)",
-            "description": "Productivity tool for teams to track progress.",
-            "link": "#"
+            "name": "Pregnify",
+            "description": "AI-powered platform for personalized pregnancy risk prediction, real-time health monitoring, and seamless patient-doctor communication.",
+            "tech_stack": [
+                "Node.js",
+                "Express.js",
+                "Prisma",
+                "MySQL",
+                "JWT",
+                "OpenAI",
+                "React",
+                "Vite",
+                "Tailwind CSS",
+                "ShadCN UI",
+                "Chart.js"
+            ],
+            "repository": "https://github.com/the-shoaib2/Pregnify",
+            "live_preview": null
         },
         {
-            "title": "Finance Dashboard",
-            "category": "UI/UX Design",
-            "imageGradient": "linear-gradient(45deg, #C7F464, #556270)",
-            "description": "Visualizing data for personal finance tracking.",
-            "link": "#"
+            "name": "Supershop Management System",
+            "description": "Spring Boot-based inventory & sales management application.",
+            "tech_stack": [
+                "Java",
+                "Spring Boot",
+                "MongoDB",
+                "Kafka",
+                "JWT",
+                "Cloudinary",
+                "OpenAPI",
+                "React",
+                "Vite",
+                "Tailwind CSS",
+                "ShadCN UI",
+                "Radix UI",
+                "Framer Motion",
+                "React Router",
+                "React Query",
+                "Zustand",
+                "Recharts"
+            ],
+            "repository": "https://github.com/the-shoaib2/Super-Shop-Management",
+            "live_preview": null
+        },
+        {
+            "name": "Meal Sphere",
+            "description": "Meal planning and recipe sharing platform.",
+            "tech_stack": [
+                "React",
+                "Next.js",
+                "Node.js",
+                "TypeScript",
+                "Prisma",
+                "MongoDB",
+                "Tailwind CSS",
+                "React Hook Form",
+                "NextAuth.js",
+                "Dotenv",
+                "Framer Motion",
+                "Recharts",
+                "Lucide React",
+                "Nodemailer"
+            ],
+            "repository": "https://github.com/the-shoaib2/meal-sphere",
+            "live_preview": "https://meal-sphere.vercel.app"
         }
     ],
     "contact": {

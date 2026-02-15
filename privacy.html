@@ -82,12 +82,20 @@
         window.addEventListener('scroll', () => {
             const currentScroll = window.scrollY;
             if (header) {
-                if (currentScroll > lastScrollY && currentScroll > 50) {
-                    header.classList.remove('hidden');
-                } else if (currentScroll < lastScrollY && currentScroll > 50) {
+                if (currentScroll > lastScrollY && currentScroll > 100) {
+                    // Scrolling Down -> Hide Header
                     header.classList.add('hidden');
-                } else if (currentScroll <= 50) {
+                } else if (currentScroll < lastScrollY) {
+                    // Scrolling Up -> Show Header
                     header.classList.remove('hidden');
+                }
+
+                // Add glass effect/shadow when scrolled
+                if (currentScroll > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                    header.classList.remove('hidden'); // Always show at the very top
                 }
             }
             lastScrollY = currentScroll;
