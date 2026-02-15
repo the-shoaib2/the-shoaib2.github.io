@@ -221,6 +221,15 @@ img {
     font-weight: 600;
     letter-spacing: -0.5px;
     color: var(--text-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-icon {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
 }
 
 .logo span {

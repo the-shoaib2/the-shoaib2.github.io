@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="site-title">Loading...</title>
+    <title id="site-title"></title>
+    <link rel="icon" type="image/x-icon" href="public/images/favicon.ico">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -308,7 +309,7 @@
             document.getElementById('site-title').textContent = site.title;
 
             const logo = document.getElementById('site-logo');
-            logo.innerHTML = `${site.logo.text}<span>${site.logo.span}</span>`;
+            logo.innerHTML = `<img src="public/images/favicon.ico" alt="Icon" class="logo-icon"> ${site.logo.text}<span>${site.logo.span}</span>`;
 
             const nav = document.getElementById('site-nav');
             site.nav.forEach((item, index) => {
