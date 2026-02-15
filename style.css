@@ -1284,14 +1284,15 @@ img {
     display: flex;
     justify-content: center;
     align-items: center;
-    opacity: 0;
     visibility: hidden;
-    transition: all cubic-bezier(0.32, 0.72, 0, 1);
+    transition: visibility 0s 0.4s;
+    pointer-events: none;
 }
 
 .image-modal.active {
-    opacity: 1;
     visibility: visible;
+    transition-delay: 0s;
+    pointer-events: auto;
 }
 
 .modal-backdrop {
@@ -1300,9 +1301,24 @@ img {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(8px) saturate(180%);
-    -webkit-backdrop-filter: blur(8px) saturate(180%);
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(0px) saturate(100%);
+    -webkit-backdrop-filter: blur(0px) saturate(100%);
+    opacity: 0;
+    transition: none;
+    /* Changed for instant close as requested previously, but will handle with active state */
+}
+
+.image-modal.active .modal-backdrop {
+    opacity: 1;
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    transition: opacity 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+/* Instant clear backdrop on close */
+.image-modal:not(.active) .modal-backdrop {
+    transition: none !important;
 }
 
 .modal-close {
@@ -1323,26 +1339,36 @@ img {
     justify-content: center;
     align-items: center;
     z-index: 10;
-    transition: all 0.2s var(--easing-standard);
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.4s cubic-bezier(0.3, 0, 0, 1);
     box-shadow: var(--glass-shadow);
+}
+
+.image-modal.active .modal-close {
+    opacity: 1;
+    transform: scale(1);
+    transition-delay: 0.1s;
 }
 
 .modal-close:hover {
     background: rgba(0, 0, 0, 0.05);
-    transform: rotate(90deg) scale(1.1);
+    transform: scale(1.1) rotate(90deg) !important;
 }
 
 .modal-content {
     position: relative;
     z-index: 1;
-    transform: scale(0.85);
-    transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+    opacity: 0;
+    transform: scale(0.92);
+    transition: all 0.4s cubic-bezier(0.3, 0, 0, 1);
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .image-modal.active .modal-content {
+    opacity: 1;
     transform: scale(1);
 }
 
