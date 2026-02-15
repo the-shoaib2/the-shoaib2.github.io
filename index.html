@@ -225,8 +225,15 @@
             fetch('data.json')
                 .then(response => response.json())
                 .then(data => {
-                    populateSite(data.site, data.profile);
-                    populateHero(data.profile);
+                    // Load images.json
+                    return fetch('images.json')
+                        .then(imgResponse => imgResponse.json())
+                        .then(images => ({ data, images }))
+                        .catch(() => ({ data, images: null }));
+                })
+                .then(({ data, images }) => {
+                    populateSite(data.site, data.profile, images);
+                    populateHero(data.profile, images);
                     populateAbout(data.about);
                     populateSkills(data.skills);
                     populateProjects(data.projects);
@@ -297,7 +304,7 @@
          * 2. DATA POPULATION FUNCTIONS
          **************************************************************************/
 
-        function populateSite(site, profile) {
+        function populateSite(site, profile, images) {
             document.getElementById('site-title').textContent = site.title;
             const logo = document.getElementById('site-logo');
             const bigLogo = document.getElementById('footer-big-logo');
@@ -309,7 +316,8 @@
                 return `<span class="logo-char-${charIndex}">${char}</span>`;
             }).join('');
 
-            const logoHTML = `<img src="public/images/favicon.ico" alt="Icon" class="logo-icon"> <div>${coloredText}<span>${site.logo.span.replace(/\.$/, '<span class="logo-dot">.</span>')}</span></div>`;
+            const faviconSrc = (images && images.favicon) ? images.favicon : 'public/images/favicon.ico';
+            const logoHTML = `<img src="${faviconSrc}" alt="Icon" class="logo-icon"> <div>${coloredText}<span>${site.logo.span.replace(/\.$/, '<span class="logo-dot">.</span>')}</span></div>`;
             logo.innerHTML = logoHTML;
             if (bigLogo) bigLogo.innerHTML = coloredText + `<span>${site.logo.span.replace(/\.$/, '<span class="logo-dot">.</span>')}</span>`;
 
@@ -345,12 +353,15 @@
             }
         }
 
-        function populateHero(profile) {
+        function populateHero(profile, images) {
             document.getElementById('hero-name').textContent = profile.name;
             document.getElementById('hero-desc').textContent = profile.description;
 
             const heroImg = document.getElementById('hero-img');
-            if (profile.profileImage) {
+            if (images && images.profile) {
+                heroImg.src = images.profile;
+                heroImg.alt = profile.name;
+            } else if (profile.profileImage) {
                 heroImg.src = profile.profileImage;
                 heroImg.alt = profile.name;
             } else {
