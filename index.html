@@ -29,6 +29,14 @@
        Third-Party Scripts
        ========================================================================== -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+    <!-- Early Theme Initialization -->
+    <script>
+        (function () {
+            const savedTheme = document.cookie.split('; ').find(row => row.startsWith('theme='))?.split('=')[1] || 'light';
+            if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+        })();
+    </script>
 </head>
 
 <body class="loading">
