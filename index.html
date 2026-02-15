@@ -56,7 +56,7 @@
        ========================================================================== -->
     <header class="header">
         <div class="container">
-            <a href="#" class="logo" id="site-logo">Loading...</a>
+            <a href="#hero" class="logo" id="site-logo">Loading...</a>
             <nav class="navbar" id="site-nav">
                 <!-- Nav items injected -->
             </nav>
@@ -750,7 +750,7 @@
                 if (entry.isIntersecting) {
                     entry.target.classList.remove('section-hidden');
                     entry.target.classList.add('section-visible');
-                    sectionObserver.unobserve(entry.target); 
+                    sectionObserver.unobserve(entry.target);
                 }
             });
         }, {
