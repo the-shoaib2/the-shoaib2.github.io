@@ -1002,14 +1002,13 @@ img {
     margin-bottom: 40px;
     color: var(--text-color);
     font-family: var(--font-heading);
-    font-size: 15vw;
+    font-size: clamp(4rem, 15vw, 15rem);
     font-weight: 800;
     letter-spacing: -5px;
     line-height: 1;
     text-align: center;
-    /* text-transform: uppercase; */
     white-space: nowrap;
-    user-select: none;
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .footer-big-logo span {
