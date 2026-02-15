@@ -1,0 +1,154 @@
+{
+    "site": {
+        "title": "Portfolio | MD Shoaib Khan",
+        "logo": {
+            "text": "Dev",
+            "span": "Portfolio."
+        },
+        "nav": [
+            {
+                "label": "Home",
+                "link": "#hero"
+            },
+            {
+                "label": "About",
+                "link": "#about"
+            },
+            {
+                "label": "Skills",
+                "link": "#skills"
+            },
+            {
+                "label": "Portfolio",
+                "link": "#portfolio"
+            },
+            {
+                "label": "Contact",
+                "link": "#contact"
+            }
+        ],
+        "sections": {
+            "about": {
+                "subtitle": "Who I Am",
+                "title": "About Me"
+            },
+            "skills": {
+                "subtitle": "My Stack",
+                "title": "Technical Skills"
+            },
+            "portfolio": {
+                "subtitle": "My Works",
+                "title": "Featured Projects"
+            },
+            "contact": {
+                "subtitle": "Get in Touch",
+                "title": "Contact Me"
+            }
+        },
+        "footer": "&copy; 2024 MD Shoaib Khan. All rights reserved."
+    },
+    "profile": {
+        "name": "MD Shoaib Khan",
+        "subtitle": "Full Stack Developer",
+        "profileImage": "public/images/profile.jpg",
+        "description": "I build accessible, pixel-perfect, and performant web experiences. Turning ideas into real-life products is my calling.",
+        "social": [
+            {
+                "icon": "fa-brands fa-github",
+                "url": "https://github.com/the-shoaib2"
+            },
+            {
+                "icon": "fa-brands fa-linkedin-in",
+                "url": "#"
+            },
+            {
+                "icon": "fa-brands fa-twitter",
+                "url": "#"
+            },
+            {
+                "icon": "fa-brands fa-dribbble",
+                "url": "#"
+            }
+        ]
+    },
+    "about": {
+        "text": [
+            "I'm a passionate developer with a keen eye for design. My journey started when I customized my first website 5 years ago. Since then, I've been hooked on the web ecosystem.",
+            "I specialize in building high-quality websites and applications that are not only visually stunning but also user-friendly and efficient."
+        ],
+        "stats": [
+            {
+                "value": "05+",
+                "label": "Years Experience"
+            },
+            {
+                "value": "50+",
+                "label": "Projects Completed"
+            },
+            {
+                "value": "20+",
+                "label": "Happy Clients"
+            }
+        ]
+    },
+    "skills": [
+        {
+            "name": "HTML5",
+            "icon": "fa-brands fa-html5",
+            "desc": "Semantic markup, Accessibility"
+        },
+        {
+            "name": "CSS3",
+            "icon": "fa-brands fa-css3-alt",
+            "desc": "Flexbox, Grid, Animations"
+        },
+        {
+            "name": "JavaScript",
+            "icon": "fa-brands fa-js",
+            "desc": "ES6+, DOM Manipulation"
+        },
+        {
+            "name": "React",
+            "icon": "fa-brands fa-react",
+            "desc": "Hooks, Components, State"
+        },
+        {
+            "name": "Node.js",
+            "icon": "fa-brands fa-node",
+            "desc": "Express, REST APIs"
+        },
+        {
+            "name": "Git",
+            "icon": "fa-brands fa-git-alt",
+            "desc": "Version Control, GitHub"
+        }
+    ],
+    "projects": [
+        {
+            "title": "E-Commerce Platform",
+            "category": "Web Design",
+            "imageGradient": "linear-gradient(45deg, #FF6B6B, #556270)",
+            "description": "A fully functional online store with cart and checkout.",
+            "link": "#"
+        },
+        {
+            "title": "Task Management App",
+            "category": "App Development",
+            "imageGradient": "linear-gradient(45deg, #4ECDC4, #556270)",
+            "description": "Productivity tool for teams to track progress.",
+            "link": "#"
+        },
+        {
+            "title": "Finance Dashboard",
+            "category": "UI/UX Design",
+            "imageGradient": "linear-gradient(45deg, #C7F464, #556270)",
+            "description": "Visualizing data for personal finance tracking.",
+            "link": "#"
+        }
+    ],
+    "contact": {
+        "location": "New York, USA",
+        "email": "hello@example.com",
+        "phone": "+1 234 567 890"
+    }
+}
