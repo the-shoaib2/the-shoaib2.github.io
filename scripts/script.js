@@ -50,6 +50,9 @@ function initIndexPage() {
             if (loader) loader.innerHTML = '<p style="color:var(--black); text-align:center; padding-top: 20px;">Error loading content. Please check your data.json file.</p>';
         })
         .finally(() => {
+            // Hide sections before loader fades out to prevent blink
+            hideSections();
+
             setTimeout(() => {
                 if (loader) loader.style.opacity = '0';
                 setTimeout(() => {
@@ -58,10 +61,10 @@ function initIndexPage() {
                     initScrollSpy();
                     initRevealAnimations();
 
-                    // Initialize One-Page Scroll & Animations
-                    initPageAnimations();
-                }, 500);
-            }, 800);
+                    // Start Section Animations after loader is gone
+                    initSectionObserver();
+                }, 300); // Wait for transition
+            }, 200);
         });
 
     // Set up UI Interactivity
@@ -490,12 +493,14 @@ function initRevealAnimations() {
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 }
 
-function initPageAnimations() {
-    // Initialize all sections as hidden
+function hideSections() {
+    // Initialize all sections as hidden immediately
     document.querySelectorAll('section').forEach(section => {
         section.classList.add('section-hidden');
     });
+}
 
+function initSectionObserver() {
     const sectionObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
