@@ -24,51 +24,7 @@
         </div>
     </header>
 
-    <script>
-        fetch('data.json')
-            .then(response => response.json())
-            .then(data => {
-                const site = data.site;
-                const policy = site.policies.privacy;
-
-                // Update Metadata
-                document.title = policy.title;
-                document.getElementById('policy-title').textContent = policy.heading;
-                document.getElementById('last-updated').textContent = `Last updated: ${policy.lastUpdated}`;
-
-                // Update Logo
-                const logo = document.getElementById('site-logo');
-                logo.innerHTML = `${site.logo.text}<span>${site.logo.span}</span>`;
-            });
-
-        // Smart Header logic
-        const header = document.querySelector('.header');
-        let lastScrollY = window.scrollY;
-
-        const handleScroll = () => {
-            const currentScroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
-            if (header) {
-                if (currentScroll > lastScrollY && currentScroll > 100) {
-                    // Scrolling Down -> Hide Header
-                    header.classList.add('hidden');
-                } else if (currentScroll < lastScrollY) {
-                    // Scrolling Up -> Show Header
-                    header.classList.remove('hidden');
-                }
-
-                // Add glass effect/shadow when scrolled
-                if (currentScroll > 50) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
-                    header.classList.remove('hidden'); // Always show at the very top
-                }
-            }
-            lastScrollY = currentScroll;
-        };
-
-        window.addEventListener('scroll', handleScroll, true);
-    </script>
+    <script src="scripts/script.js"></script>
 
     <main class="policy-container reveal active">
         <a href="index.html" class="back-home"><i class="fa-solid fa-arrow-left"></i> Back to Home</a>
