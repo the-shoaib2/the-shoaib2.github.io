@@ -50,16 +50,17 @@ function initIndexPage() {
             // Hide sections before loader fades out to prevent blink
             hideSections();
 
-            // Start Section Observers immediately to reduce latency
-            initSectionObserver();
-            initRevealAnimations();
-            initScrollSpy();
-
             setTimeout(() => {
                 if (loader) loader.style.opacity = '0';
                 setTimeout(() => {
                     if (loader) loader.style.display = 'none';
                     document.body.classList.remove('loading');
+                    initScrollSpy();
+                    initRevealAnimations();
+
+                    // Start Section Animations after loader is gone
+                    initSectionObserver();
+
                     // Handle URL hash on reload
                     handleInitialHash();
                 }, 300); // Wait for transition
@@ -680,11 +681,9 @@ function initRevealAnimations() {
 }
 
 function hideSections() {
-    // Initialize all sections as hidden immediately, except Hero
+    // Initialize all sections as hidden immediately
     document.querySelectorAll('section').forEach(section => {
-        if (section.id !== 'hero') {
-            section.classList.add('section-hidden');
-        }
+        section.classList.add('section-hidden');
     });
 }
 
@@ -698,8 +697,8 @@ function initSectionObserver() {
             }
         });
     }, {
-        threshold: 0,
-        rootMargin: '100px'
+        threshold: 0.1,
+        rootMargin: '0px'
     });
 
     document.querySelectorAll('section').forEach(section => {
