@@ -31,20 +31,17 @@ function initIndexPage() {
     fetch('data.json')
         .then(response => response.json())
         .then(data => {
-            // Load images.json
-            return fetch('images.json')
-                .then(imgResponse => imgResponse.json())
-                .then(images => ({ data, images }))
-                .catch(() => ({ data, images: null }));
-        })
-        .then(({ data, images }) => {
-            populateSite(data.site, data.profile, images);
-            populateHero(data.profile, images);
+            populateSite(data.site, data.profile);
+            populateHero(data.profile);
             populateAbout(data.about);
+            populateExperience(data.experience);
             populateSkills(data.skills);
+            populateServices(data.services);
+            populateTestimonials(data.testimonials);
             populateProjects(data.projects);
             populateContact(data.contact);
         })
+
         .catch(error => {
             console.error('Error loading data:', error);
             if (loader) loader.innerHTML = '<p style="color:var(--black); text-align:center; padding-top: 20px;">Error loading content. Please check your data.json file.</p>';
@@ -272,7 +269,7 @@ function populateSite(site, profile, images) {
         return `<span class="logo-char-${charIndex}">${char}</span>`;
     }).join('');
 
-    const faviconSrc = (images && images.favicon) ? images.favicon : 'public/images/favicon.ico';
+    const faviconSrc = site.favicon || 'public/images/favicon.ico';
     const logoHTML = `<img src="${faviconSrc}" alt="Icon" class="logo-icon"> <div>${coloredText}<span>${site.logo.span.replace(/\.$/, '<span class="logo-dot">.</span>')}</span></div>`;
 
     if (logo) logo.innerHTML = logoHTML;
@@ -319,10 +316,7 @@ function populateHero(profile, images) {
 
     const heroImg = document.getElementById('hero-img');
     if (heroImg) {
-        if (images && images.profile) {
-            heroImg.src = images.profile;
-            heroImg.alt = profile.name;
-        } else if (profile.profileImage) {
+        if (profile.profileImage) {
             heroImg.src = profile.profileImage;
             heroImg.alt = profile.name;
         } else {
@@ -405,10 +399,18 @@ function populateProjects(projects) {
 
         const techTags = project.tech_stack.map(tech => `<span class="tech-tag">${tech}</span>`).join('');
 
+        // Dynamic Screenshot Logic: Direct Thum.io Link
+        let projectImg = project.image;
+        if (!projectImg && (project.live_preview || project.repository)) {
+            const previewUrl = project.live_preview || project.repository;
+            projectImg = `https://image.thum.io/get/width/1200/crop/800/maxAge/12/delay/3/${previewUrl}`;
+        }
+
         card.innerHTML = `
-            <div class="project-img">
-                <img src="${project.image || ''}" alt="${project.name}" class="project-card-img" 
-                     onerror="this.style.display='none'; this.parentElement.classList.add('no-image');">
+            <div class="project-img loading">
+                <img src="${projectImg || ''}" alt="${project.name}" class="project-card-img" 
+                     onload="this.classList.add('loaded'); this.parentElement.classList.remove('loading');"
+                     onerror="this.style.display='none'; this.parentElement.classList.remove('loading'); this.parentElement.classList.add('no-image');">
                 <div class="img-fallback"></div>
             </div>
             <div class="project-content">
@@ -430,6 +432,21 @@ function populateProjects(projects) {
     });
 }
 
+// Global Image Error Handler for Screenshot Fallback
+window.handleImageError = function (img, fallbackSrc) {
+    if (img.getAttribute('data-tried-fallback') === 'true') {
+        // Fallback also failed -> Hide image completely
+        img.style.display = 'none';
+        img.parentElement.classList.remove('loading');
+        img.parentElement.classList.add('no-image');
+        return;
+    }
+
+    // First failure (Local missing) -> Try Thum.io fallback
+    img.setAttribute('data-tried-fallback', 'true');
+    img.src = fallbackSrc;
+};
+
 function populateContact(contact) {
     const infoContainer = document.getElementById('contact-info');
     if (!infoContainer) return;
@@ -446,6 +463,111 @@ function populateContact(contact) {
             </div>
         `;
         infoContainer.appendChild(div);
+    });
+}
+
+function populateExperience(experience) {
+    const container = document.getElementById('experience-timeline');
+    if (!container || !experience) return;
+
+    experience.forEach((item, index) => {
+        const div = document.createElement('div');
+        div.className = 'timeline-item reveal';
+        div.style.transitionDelay = `${index * 150}ms`;
+        div.innerHTML = `
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <span class="timeline-date">${item.duration}</span>
+                <h3>${item.role}</h3>
+                <h4>${item.company}</h4>
+                <p>${item.description}</p>
+            </div>
+        `;
+        container.appendChild(div);
+    });
+}
+
+function populateServices(services) {
+    const container = document.getElementById('services-grid');
+    if (!container || !services) return;
+
+    services.forEach((service, index) => {
+        const div = document.createElement('div');
+        div.className = 'service-card reveal';
+        div.style.transitionDelay = `${index * 100}ms`;
+        div.innerHTML = `
+            <div class="service-icon"><i class="${service.icon}"></i></div>
+            <h3>${service.title}</h3>
+            <p>${service.description}</p>
+        `;
+        container.appendChild(div);
+    });
+}
+
+function populateTestimonials(testimonials) {
+    const row1 = document.getElementById('testimonials-row-1');
+    const row2 = document.getElementById('testimonials-row-2');
+    if (!row1 || !row2 || !testimonials) return;
+
+    // Split testimonials into two groups
+    const middleIndex = Math.ceil(testimonials.length / 2);
+    const group1 = testimonials.slice(0, middleIndex);
+    const group2 = testimonials.slice(middleIndex);
+
+    const createCard = (testimonial) => `
+        <div class="testimonial-card">
+            <div class="testimonial-content">
+                <i class="fa-solid fa-quote-left"></i>
+                <p>"${testimonial.feedback}"</p>
+            </div>
+            <div class="testimonial-author">
+                <img src="${testimonial.avatar}" alt="${testimonial.name}" class="author-img">
+                <div class="author-info">
+                    <h4>${testimonial.name}</h4>
+                    <p>${testimonial.role}</p>
+                </div>
+            </div>
+        </div>
+    `;
+
+    // Populate rows with clones for seamless scroll
+    const fillRow = (row, items) => {
+        // Triple items to ensure content is wider than screen
+        const content = [...items, ...items, ...items].map(createCard).join('');
+        row.innerHTML = content;
+    };
+
+    fillRow(row1, group1);
+    fillRow(row2, group2);
+
+    // Initialize Scroll-Linked Animation
+    initTestimonialScroll();
+}
+
+function initTestimonialScroll() {
+    const row1 = document.getElementById('testimonials-row-1');
+    const row2 = document.getElementById('testimonials-row-2');
+    const section = document.getElementById('testimonials');
+
+    if (!row1 || !row2 || !section) return;
+
+    window.addEventListener('scroll', () => {
+        const rect = section.getBoundingClientRect();
+        const viewHeight = window.innerHeight;
+
+        // Check if section is visible in viewport
+        if (rect.top < viewHeight && rect.bottom > 0) {
+            // Calculate scroll progress within and around the section
+            const scrolled = (viewHeight - rect.top) / (viewHeight + rect.height);
+
+            // Apply parallax effect (different directions for rows)
+            const speed = 300; // Increased for more distinct movement
+            const offset1 = (scrolled - 0.5) * speed;
+            const offset2 = (0.5 - scrolled) * speed;
+
+            row1.style.transform = `translateX(${offset1}px)`;
+            row2.style.transform = `translateX(${offset2}px)`;
+        }
     });
 }
 

@@ -5,6 +5,7 @@
             "text": "Dev",
             "span": "Portfolio."
         },
+        "favicon": "public/images/favicon.ico",
         "nav": [
             {
                 "label": "Home",
@@ -103,6 +104,26 @@
             }
         ]
     },
+    "experience": [
+        {
+            "role": "Senior Full Stack Dev",
+            "company": "Tech Solutions Inc.",
+            "duration": "2023 - Present",
+            "description": "Leading a team of developers to build scalable AI-driven web applications. Architecting cloud solutions using AWS and Docker."
+        },
+        {
+            "role": "Full Stack Developer",
+            "company": "Creative Agency",
+            "duration": "2021 - 2023",
+            "description": "Developed and maintained multiple client websites using React and Node.js. Improved site performance by 40%."
+        },
+        {
+            "role": "Junior Web Developer",
+            "company": "StartUp Hub",
+            "duration": "2019 - 2021",
+            "description": "Collaborated with designers to implement responsive UI/UX. Built RESTful APIs for mobile applications."
+        }
+    ],
     "skills": {
         "programming_languages": [
             "C",
@@ -176,6 +197,29 @@
     },
     "projects": [
         {
+            "name": "Meal Sphere",
+            "description": "Meal planning and recipe sharing platform.",
+            "tech_stack": [
+                "React",
+                "Next.js",
+                "Node.js",
+                "TypeScript",
+                "Prisma",
+                "MongoDB",
+                "Tailwind CSS",
+                "React Hook Form",
+                "NextAuth.js",
+                "Dotenv",
+                "Framer Motion",
+                "Recharts",
+                "Lucide React",
+                "Nodemailer"
+            ],
+            "repository": "https://github.com/the-shoaib2/meal-sphere",
+            "image": null,
+            "live_preview": "https://meal-sphere.vercel.app"
+        },
+        {
             "name": "AI Agent",
             "description": "Intelligent agent platform leveraging NLP and automation for productivity.",
             "tech_stack": [
@@ -186,7 +230,7 @@
                 "Docker"
             ],
             "repository": "https://github.com/the-shoaib2/ai-agent",
-            "image": "",
+            "image": null,
             "live_preview": null
         },
         {
@@ -206,7 +250,7 @@
                 "Chart.js"
             ],
             "repository": "https://github.com/the-shoaib2/Pregnify",
-            "image": "",
+            "image": null,
             "live_preview": null
         },
         {
@@ -232,31 +276,75 @@
                 "Recharts"
             ],
             "repository": "https://github.com/the-shoaib2/Super-Shop-Management",
-            "image": "",
+            "image": null,
             "live_preview": null
+        }
+    ],
+    "services": [
+        {
+            "title": "Web Development",
+            "icon": "fa-solid fa-code",
+            "description": "Building responsive, high-performance websites using reliable technologies like React, Next.js, and Node.js."
         },
         {
-            "name": "Meal Sphere",
-            "description": "Meal planning and recipe sharing platform.",
-            "tech_stack": [
-                "React",
-                "Next.js",
-                "Node.js",
-                "TypeScript",
-                "Prisma",
-                "MongoDB",
-                "Tailwind CSS",
-                "React Hook Form",
-                "NextAuth.js",
-                "Dotenv",
-                "Framer Motion",
-                "Recharts",
-                "Lucide React",
-                "Nodemailer"
-            ],
-            "repository": "https://github.com/the-shoaib2/meal-sphere",
-            "image": "",
-            "live_preview": "https://meal-sphere.vercel.app"
+            "title": "Mobile App Development",
+            "icon": "fa-solid fa-mobile-screen",
+            "description": "Creating native Android and iOS applications with Flutter and React Native for seamless user experiences."
+        },
+        {
+            "title": "AI Solutions",
+            "icon": "fa-solid fa-brain",
+            "description": "Integrating machine learning models and AI agents to automate workflows and enhance business intelligence."
+        }
+    ],
+    "testimonials": [
+        {
+            "name": "Sarah Jenkins",
+            "role": "CEO at TechStart",
+            "feedback": "Shoaib delivered our project on time and exceeded our expectations. His understanding of AI integration is top-notch.",
+            "avatar": "https://randomuser.me/api/portraits/women/44.jpg"
+        },
+        {
+            "name": "Michael Chen",
+            "role": "Product Manager",
+            "feedback": "A true professional. The mobile app he built for us is smooth, responsive, and exactly what our users needed.",
+            "avatar": "https://randomuser.me/api/portraits/men/32.jpg"
+        },
+        {
+            "name": "Emily Davis",
+            "role": "Founder",
+            "feedback": "Highly recommended! Shoaib's full-stack skills helped us launch our platform ahead of schedule.",
+            "avatar": "https://randomuser.me/api/portraits/women/68.jpg"
+        },
+        {
+            "name": "James Wilson",
+            "role": "CTO, InnovateX",
+            "feedback": "Outstanding technical depth. His ability to bridge design and complex backend architecture is rare.",
+            "avatar": "https://randomuser.me/api/portraits/men/46.jpg"
+        },
+        {
+            "name": "Jessica Lee",
+            "role": "Founder, AI Hive",
+            "feedback": "The AI agents Shoaib developed for us transformed our workflow. Fast, reliable, and incredibly smart.",
+            "avatar": "https://randomuser.me/api/portraits/women/24.jpg"
+        },
+        {
+            "name": "David Miller",
+            "role": "Marketing Director",
+            "feedback": "Pixel-perfect implementation every time. Our landing page conversion spiked after the redesign.",
+            "avatar": "https://randomuser.me/api/portraits/men/52.jpg"
+        },
+        {
+            "name": "Sophia Rodriguez",
+            "role": "Startup Consultant",
+            "feedback": "Great communication and even better code. Shoaib is my go-to developer for any complex MVP.",
+            "avatar": "https://randomuser.me/api/portraits/women/33.jpg"
+        },
+        {
+            "name": "Ryan Thompson",
+            "role": "E-commerce Owner",
+            "feedback": "He handles everything from database design to frontend animations with ease. Highly impressed.",
+            "avatar": "https://randomuser.me/api/portraits/men/11.jpg"
         }
     ],
     "contact": {
