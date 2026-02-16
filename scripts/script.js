@@ -434,11 +434,12 @@ function populateProjects(projects) {
 
         const techTags = project.tech_stack.map(tech => `<span class="tech-tag">${tech}</span>`).join('');
 
-        // Dynamic Screenshot Logic: Direct Thum.io Link
+        // Dynamic Screenshot Logic: WordPress mshots (More reliable free tier)
         let projectImg = project.image;
         if (!projectImg && (project.live_preview || project.repository)) {
             const previewUrl = project.live_preview || project.repository;
-            projectImg = `https://image.thum.io/get/width/1200/crop/800/maxAge/12/delay/3/${previewUrl}`;
+            // Use WordPress mshots service
+            projectImg = `https://s0.wp.com/mshots/v1/${encodeURIComponent(previewUrl)}?w=1200`;
         }
 
         card.innerHTML = `

@@ -216,7 +216,7 @@
                 "Nodemailer"
             ],
             "repository": "https://github.com/the-shoaib2/meal-sphere",
-            "image": null,
+            "image": "https://s0.wp.com/mshots/v1/https%3A%2F%2Fmeal-sphere.vercel.app?w=1200",
             "live_preview": "https://meal-sphere.vercel.app"
         },
         {
@@ -230,7 +230,7 @@
                 "Docker"
             ],
             "repository": "https://github.com/the-shoaib2/ai-agent",
-            "image": null,
+            "image": "https://s0.wp.com/mshots/v1/https%3A%2F%2Fgithub.com%2Fthe-shoaib2%2Fai-agent?w=1200",
             "live_preview": null
         },
         {
@@ -250,7 +250,7 @@
                 "Chart.js"
             ],
             "repository": "https://github.com/the-shoaib2/Pregnify",
-            "image": null,
+            "image": "https://s0.wp.com/mshots/v1/https%3A%2F%2Fgithub.com%2Fthe-shoaib2%2FPregnify?w=1200",
             "live_preview": null
         },
         {
@@ -276,7 +276,7 @@
                 "Recharts"
             ],
             "repository": "https://github.com/the-shoaib2/Super-Shop-Management",
-            "image": null,
+            "image": "https://s0.wp.com/mshots/v1/https%3A%2F%2Fgithub.com%2Fthe-shoaib2%2FSuper-Shop-Management?w=1200",
             "live_preview": null
         }
     ],

@@ -779,6 +779,10 @@ img {
     background: var(--card);
     transition: box-shadow 0.3s;
     overflow: hidden;
+    aspect-ratio: 12 / 9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Shimmer Loading State */
@@ -1821,10 +1825,6 @@ img {
 
     .portfolio-grid {
         grid-template-columns: 1fr;
-    }
-
-    .project-img {
-        height: 350px;
     }
 
     .btn {
