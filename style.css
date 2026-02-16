@@ -986,30 +986,52 @@ img {
 }
 
 /* Testimonials Section */
-.testimonials-marquee {
-    position: relative;
+.testimonials {
+    height: 300vh;
+    /* Increased height for scroll distance */
+    padding: 0;
+    margin-bottom: 50vh;
+    /* Add space before next section starts */
+    display: block;
+    /* Override .section's flex display */
+    min-height: auto;
+    /* Override .section's min-height */
+}
+
+.sticky-inner {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     overflow: hidden;
-    padding: 40px 0;
+}
+
+.testimonials-marquee {
+    padding: 20px 0;
     width: 100%;
-    /* Blurry fade on sides - subtle for container width */
+    /* Blurry fade on sides */
     mask-image: linear-gradient(to right,
             transparent,
-            black 5%,
-            black 95%,
+            black 10%,
+            black 90%,
             transparent);
     -webkit-mask-image: linear-gradient(to right,
             transparent,
-            black 5%,
-            black 95%,
+            black 10%,
+            black 90%,
             transparent);
 }
 
 .marquee-row {
     display: flex;
+    flex-wrap: nowrap;
+    width: max-content;
     gap: 30px;
     padding: 15px 0;
     will-change: transform;
-    transition: transform 0.1s linear;
+    backface-visibility: hidden;
 }
 
 .marquee-row#testimonials-row-1 {
@@ -1017,8 +1039,8 @@ img {
 }
 
 .testimonial-card {
-    flex: 0 0 380px;
-    padding: 24px;
+    flex: 0 0 340px;
+    padding: 16px;
     border: var(--glass-border);
     border-radius: 20px;
     background: var(--glass-bg);
@@ -1033,7 +1055,7 @@ img {
 }
 
 .testimonial-content {
-    margin-bottom: 16px;
+    margin-bottom: 10px;
 }
 
 .testimonial-content i {
@@ -1045,9 +1067,9 @@ img {
 
 .testimonial-content p {
     color: var(--text-color);
-    font-size: 1.1rem;
+    font-size: 0.95rem;
     font-style: italic;
-    line-height: 1.6;
+    line-height: 1.5;
 }
 
 .testimonial-author {
@@ -1057,8 +1079,8 @@ img {
 }
 
 .author-img {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border: 2px solid var(--background);
     border-radius: 50%;
     object-fit: cover;

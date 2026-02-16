@@ -50,16 +50,18 @@ function initIndexPage() {
             // Hide sections before loader fades out to prevent blink
             hideSections();
 
+            // Start Section Observers immediately to reduce latency
+            initSectionObserver();
+            initRevealAnimations();
+            initScrollSpy();
+
             setTimeout(() => {
                 if (loader) loader.style.opacity = '0';
                 setTimeout(() => {
                     if (loader) loader.style.display = 'none';
                     document.body.classList.remove('loading');
-                    initScrollSpy();
-                    initRevealAnimations();
-
-                    // Start Section Animations after loader is gone
-                    initSectionObserver();
+                    // Handle URL hash on reload
+                    handleInitialHash();
                 }, 300); // Wait for transition
             }, 200);
         });
@@ -108,6 +110,38 @@ function initPolicyPage() {
 
     initHeaderScroll(); // Re-use common header scroll logic if compatible, or use simple one
     initThemeForPolicy(); // Policy pages just need to respect theme, maybe not toggle it if no button
+}
+
+/* ==========================================================================
+   State Handling (Hash/Reload)
+   ========================================================================== */
+
+function handleInitialHash() {
+    const hash = window.location.hash;
+    if (hash) {
+        const targetElement = document.querySelector(hash);
+        if (targetElement) {
+            // Force visibility if it's hidden by animations
+            targetElement.classList.remove('section-hidden');
+            targetElement.classList.add('section-visible');
+
+            // Find all reveal elements inside and show them
+            targetElement.querySelectorAll('.reveal').forEach(el => {
+                el.classList.add('active');
+            });
+
+            // Delay scroll slightly to ensure layout is stable
+            setTimeout(() => {
+                targetElement.scrollIntoView({ behavior: 'smooth' });
+
+                // Update active nav link
+                const navLinks = document.querySelectorAll('.navbar a');
+                navLinks.forEach(link => {
+                    link.classList.toggle('active', link.getAttribute('href') === hash);
+                });
+            }, 100);
+        }
+    }
 }
 
 /* ==========================================================================
@@ -551,24 +585,43 @@ function initTestimonialScroll() {
 
     if (!row1 || !row2 || !section) return;
 
-    window.addEventListener('scroll', () => {
+    let ticking = false;
+
+    const update = () => {
         const rect = section.getBoundingClientRect();
         const viewHeight = window.innerHeight;
 
-        // Check if section is visible in viewport
+        // The total vertical distance available for horizontal scrolling
+        const horizontalScrollPath = rect.height - viewHeight;
+
+        // Calculate progress based on how much of the parent has scrolled past the top
+        // Clamp it between 0 and 1
+        let progress = -rect.top / horizontalScrollPath;
+        progress = Math.max(0, Math.min(1, progress));
+
+        // Wider range for more dramatic horizontal movement
+        const moveRange = 1200;
+        const offset1 = (progress - 0.5) * moveRange;
+        const offset2 = (0.5 - progress) * moveRange;
+
+        // Always update while the section is anywhere near the viewport
         if (rect.top < viewHeight && rect.bottom > 0) {
-            // Calculate scroll progress within and around the section
-            const scrolled = (viewHeight - rect.top) / (viewHeight + rect.height);
-
-            // Apply parallax effect (different directions for rows)
-            const speed = 300; // Increased for more distinct movement
-            const offset1 = (scrolled - 0.5) * speed;
-            const offset2 = (0.5 - scrolled) * speed;
-
-            row1.style.transform = `translateX(${offset1}px)`;
-            row2.style.transform = `translateX(${offset2}px)`;
+            row1.style.transform = `translate3d(${offset1}px, 0, 0)`;
+            row2.style.transform = `translate3d(${offset2}px, 0, 0)`;
         }
-    });
+
+        ticking = false;
+    };
+
+    const onScroll = () => {
+        if (!ticking) {
+            requestAnimationFrame(update);
+            ticking = true;
+        }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    update(); // Initial position
 }
 
 /* ==========================================================================
@@ -584,9 +637,15 @@ function initScrollSpy() {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
             if (entry.isIntersecting) {
+                const id = entry.target.id;
                 navLinks.forEach((link) => {
-                    link.classList.toggle("active", link.getAttribute("href") === `#${entry.target.id}`);
+                    link.classList.toggle("active", link.getAttribute("href") === `#${id}`);
                 });
+
+                // Dynamically update URL hash without scrolling
+                if (window.location.hash !== `#${id}`) {
+                    history.replaceState(null, null, `#${id}`);
+                }
             }
         });
     }, options);
@@ -597,6 +656,11 @@ function initScrollSpy() {
         if (window.scrollY < 100) {
             navLinks.forEach(l => l.classList.remove('active'));
             if (navLinks[0]) navLinks[0].classList.add('active');
+
+            // Clear hash when at the top
+            if (window.location.hash !== '') {
+                history.replaceState(null, null, window.location.pathname);
+            }
         }
     });
 }
@@ -616,9 +680,11 @@ function initRevealAnimations() {
 }
 
 function hideSections() {
-    // Initialize all sections as hidden immediately
+    // Initialize all sections as hidden immediately, except Hero
     document.querySelectorAll('section').forEach(section => {
-        section.classList.add('section-hidden');
+        if (section.id !== 'hero') {
+            section.classList.add('section-hidden');
+        }
     });
 }
 
@@ -632,8 +698,8 @@ function initSectionObserver() {
             }
         });
     }, {
-        threshold: 0.1,
-        rootMargin: '0px'
+        threshold: 0,
+        rootMargin: '100px'
     });
 
     document.querySelectorAll('section').forEach(section => {

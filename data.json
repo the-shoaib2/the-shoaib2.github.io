@@ -345,6 +345,30 @@
             "role": "E-commerce Owner",
             "feedback": "He handles everything from database design to frontend animations with ease. Highly impressed.",
             "avatar": "https://randomuser.me/api/portraits/men/11.jpg"
+        },
+        {
+            "name": "Linda Wu",
+            "role": "Marketing Lead",
+            "feedback": "The UI Shoaib built is stunning and works perfectly across all devices. Highly recommend!",
+            "avatar": "https://randomuser.me/api/portraits/women/12.jpg"
+        },
+        {
+            "name": "Alex Rivier",
+            "role": "Startup Founder",
+            "feedback": "Shoaib's ability to grasp complex requirements and turn them into code is impressive.",
+            "avatar": "https://randomuser.me/api/portraits/men/25.jpg"
+        },
+        {
+            "name": "Chloe Bennett",
+            "role": "App Designer",
+            "feedback": "Working with Shoaib was a breeze. He's efficient, communicative, and very talented.",
+            "avatar": "https://randomuser.me/api/portraits/women/35.jpg"
+        },
+        {
+            "name": "Mark Stevens",
+            "role": "CTO, CloudScale",
+            "feedback": "A top-tier developer who understands both the small details and the big picture.",
+            "avatar": "https://randomuser.me/api/portraits/men/55.jpg"
         }
     ],
     "contact": {
