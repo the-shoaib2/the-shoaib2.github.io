@@ -173,7 +173,14 @@ function initCustomScrollbar() {
         thumb.style.transform = `translateY(${thumbTop}px)`;
     }
 
-    window.addEventListener('scroll', updateScrollbar);
+    window.addEventListener('scroll', () => {
+        document.body.classList.add('scrolling');
+        clearTimeout(window.scrollTimeout);
+        window.scrollTimeout = setTimeout(() => {
+            document.body.classList.remove('scrolling');
+        }, 1000);
+        updateScrollbar();
+    });
     window.addEventListener('resize', updateScrollbar);
     const observer = new MutationObserver(updateScrollbar);
     observer.observe(document.body, { childList: true, subtree: true });
@@ -568,8 +575,8 @@ function populateTestimonials(testimonials) {
 
     // Populate rows with clones for seamless scroll
     const fillRow = (row, items) => {
-        // Triple items to ensure content is wider than screen
-        const content = [...items, ...items, ...items].map(createCard).join('');
+        // Double items is enough for the scroll-linked animation
+        const content = [...items, ...items].map(createCard).join('');
         row.innerHTML = content;
     };
 
@@ -584,29 +591,62 @@ function initTestimonialScroll() {
     const row1 = document.getElementById('testimonials-row-1');
     const row2 = document.getElementById('testimonials-row-2');
     const section = document.getElementById('testimonials');
+    const container = section ? section.querySelector('.container') : null;
 
-    if (!row1 || !row2 || !section) return;
+    if (!row1 || !row2 || !section || !container) return;
 
     let ticking = false;
+    let maxMove1 = 0;
+    let maxMove2 = 0;
+
+    const calculateBounds = () => {
+        // Use container width instead of window width for accurate scroll range
+        const viewWidth = container.offsetWidth;
+
+        // Improve calculation to ensure we scroll enough but not too much
+        // The visible area is the container width
+
+        maxMove1 = row1.scrollWidth - viewWidth;
+        maxMove2 = row2.scrollWidth - viewWidth;
+
+        // Add a little buffer to ensure full visibility
+        maxMove1 += 20;
+        maxMove2 += 20;
+    };
+
+    calculateBounds();
 
     const update = () => {
         const rect = section.getBoundingClientRect();
         const viewHeight = window.innerHeight;
 
         // The total vertical distance available for horizontal scrolling
-        const horizontalScrollPath = rect.height - viewHeight;
+        const horizontalScrollPath = section.offsetHeight - viewHeight;
 
-        // Calculate progress based on how much of the parent has scrolled past the top
-        // Clamp it between 0 and 1
-        let progress = -rect.top / horizontalScrollPath;
-        progress = Math.max(0, Math.min(1, progress));
+        // Progress 0 at top of section, 1 when section is about to unpin
+        let progress = 0;
 
-        // Wider range for more dramatic horizontal movement
-        const moveRange = 1200;
-        const offset1 = (progress - 0.5) * moveRange;
-        const offset2 = (0.5 - progress) * moveRange;
+        if (horizontalScrollPath > 0) {
+            progress = -rect.top / horizontalScrollPath;
+            // Clamp progress between 0 and 1
+            progress = Math.max(0, Math.min(1, progress));
+        }
+
+        // Row 1: Start at far right (negative offset), move towards 0 (Right movement)
+        // We want it to start translated to the left and move right
+        // Actually, marquee通常 is:
+        // Row 1: Moves Left to Right? Or Right to Left?
+        // Let's stick to the previous direction but fix the range.
+        // Previous: offset1 = -maxMove1 + (progress * maxMove1) -> Starts at -maxMove1 (shifted left), ends at 0.
+        // This makes it move Right.
+
+        const offset1 = -maxMove1 + (progress * maxMove1);
+
+        // Row 2: Start at 0, move towards negative offset (Left movement)
+        const offset2 = -(progress * maxMove2);
 
         // Always update while the section is anywhere near the viewport
+        // Expanded range to ensure it doesn't jump when entering/exiting
         if (rect.top < viewHeight && rect.bottom > 0) {
             row1.style.transform = `translate3d(${offset1}px, 0, 0)`;
             row2.style.transform = `translate3d(${offset2}px, 0, 0)`;
@@ -623,7 +663,10 @@ function initTestimonialScroll() {
     };
 
     window.addEventListener('scroll', onScroll, { passive: true });
-    update(); // Initial position
+    window.addEventListener('resize', calculateBounds);
+
+    // Initial update
+    setTimeout(update, 100);
 }
 
 /* ==========================================================================

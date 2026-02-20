@@ -277,12 +277,13 @@ img {
 
 .scrollbar-thumb {
     position: absolute;
-    right: 4px;
+    right: 0;
     width: 6px;
     border-radius: 10px;
     background: var(--google-blue);
     cursor: pointer;
-    transition: width 0.3s ease, background 0.3s ease;
+    opacity: 0;
+    transition: width 0.3s ease, background 0.3s ease, opacity 0.3s ease;
 }
 
 ::selection {
@@ -994,8 +995,8 @@ img {
     height: 300vh;
     /* Increased height for scroll distance */
     padding: 0;
-    margin-bottom: 50vh;
-    /* Add space before next section starts */
+    margin-bottom: 100px;
+    /* Reduced space to prevent dead scroll zone */
     display: block;
     /* Override .section's flex display */
     min-height: auto;
