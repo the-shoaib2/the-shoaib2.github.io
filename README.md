@@ -7,6 +7,8 @@
 > **A modern, fully responsive developer portfolio template.**
 > *Clean code. Glassmorphism UI. Smooth Animations.*
 
+[![Homepage](https://s0.wp.com/mshots/v1/https://the-shoaib2.github.io/#hero)](https://the-shoaib2.github.io/#hero)
+
 ---
 
 ## ✨ Features
