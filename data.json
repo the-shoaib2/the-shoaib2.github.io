@@ -63,7 +63,7 @@
     "profile": {
         "name": "MD Shoaib Khan",
         "subtitle": "Full Stack Developer",
-        "profileImage": "public/images/profile.jpg",
+        "profileImage": "https://avatars.githubusercontent.com/u/125272364?v=4",
         "description": "I build accessible, pixel-perfect, and performant web experiences. Turning ideas into real-life products is my calling.",
         "social": [
             {
