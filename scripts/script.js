@@ -56,6 +56,7 @@ function initIndexPage() {
                     if (loader) loader.style.display = 'none';
                     document.body.classList.remove('loading');
                     initScrollSpy();
+                    initSmoothNavScroll();
                     initRevealAnimations();
 
                     // Start Section Animations after loader is gone
@@ -707,6 +708,28 @@ function initScrollSpy() {
                 history.replaceState(null, null, window.location.pathname);
             }
         }
+    });
+}
+
+function initSmoothNavScroll() {
+    const navLinks = document.querySelectorAll('.navbar a[href^="#"]');
+    if (!navLinks.length) return;
+
+    navLinks.forEach((link) => {
+        link.addEventListener('click', (event) => {
+            const targetId = link.getAttribute('href');
+            if (!targetId) return;
+
+            const targetSection = document.querySelector(targetId);
+            if (!targetSection) return;
+
+            event.preventDefault();
+            targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            if (window.location.hash !== targetId) {
+                history.pushState(null, null, targetId);
+            }
+        });
     });
 }
 
