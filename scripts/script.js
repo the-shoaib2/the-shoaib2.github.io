@@ -613,9 +613,12 @@ function initTestimonialScroll() {
     };
 
     const render = () => {
+        // Row 2 starts one loop-width to the left, then moves right for opposite direction.
+        const row2TranslateX = -loopWidth2 + offset2;
+
         // Row 1: left, Row 2: right
         row1.style.transform = `translate3d(${-offset1}px, 0, 0)`;
-        row2.style.transform = `translate3d(${(-loopWidth2 + offset2)}px, 0, 0)`;
+        row2.style.transform = `translate3d(${row2TranslateX}px, 0, 0)`;
     };
 
     const animate = (ts) => {
@@ -647,7 +650,7 @@ function initTestimonialScroll() {
         offset1 = 0;
         offset2 = 0;
         render();
-        if (!reduceMotion) lastTs = 0;
+        lastTs = 0;
     };
 
     measure();
