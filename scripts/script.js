@@ -604,7 +604,8 @@ function initTestimonialScroll() {
     let animationFrameId = null;
     let lastTs = 0;
     const speedPxPerSec = 28;
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let reduceMotion = motionQuery.matches;
 
     const measure = () => {
         loopWidth1 = row1.scrollWidth / 2;
@@ -631,19 +632,31 @@ function initTestimonialScroll() {
         animationFrameId = requestAnimationFrame(animate);
     };
 
+    let resizeRafId = null;
     const onResize = () => {
-        measure();
-        render();
+        if (resizeRafId) return;
+        resizeRafId = requestAnimationFrame(() => {
+            resizeRafId = null;
+            measure();
+            render();
+        });
+    };
+    const onMotionPreferenceChange = (event) => {
+        reduceMotion = event.matches;
     };
 
     measure();
     render();
     animationFrameId = requestAnimationFrame(animate);
     window.addEventListener('resize', onResize);
+    motionQuery.addEventListener('change', onMotionPreferenceChange);
 
     window.__testimonialScrollCleanup = () => {
         if (animationFrameId) cancelAnimationFrame(animationFrameId);
+        if (resizeRafId) cancelAnimationFrame(resizeRafId);
         window.removeEventListener('resize', onResize);
+        motionQuery.removeEventListener('change', onMotionPreferenceChange);
+        lastTs = 0;
         window.__testimonialScrollCleanup = null;
     };
 }
