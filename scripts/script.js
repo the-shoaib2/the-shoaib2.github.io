@@ -590,83 +590,83 @@ function populateTestimonials(testimonials) {
 function initTestimonialScroll() {
     const row1 = document.getElementById('testimonials-row-1');
     const row2 = document.getElementById('testimonials-row-2');
-    const section = document.getElementById('testimonials');
-    const container = section ? section.querySelector('.container') : null;
+    if (!row1 || !row2) return;
 
-    if (!row1 || !row2 || !section || !container) return;
+    // Clean up any previous marquee loop before creating a new one
+    if (typeof window.__testimonialScrollCleanup === 'function') {
+        window.__testimonialScrollCleanup();
+    }
 
-    let ticking = false;
-    let maxMove1 = 0;
-    let maxMove2 = 0;
+    let loopWidth1 = 0;
+    let loopWidth2 = 0;
+    let offset1 = 0;
+    let offset2 = 0;
+    let animationFrameId = null;
+    let lastTs = 0;
+    const speedPxPerSec = 28;
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let reduceMotion = motionQuery.matches;
 
-    const calculateBounds = () => {
-        // Use container width instead of window width for accurate scroll range
-        const viewWidth = container.offsetWidth;
-
-        // Improve calculation to ensure we scroll enough but not too much
-        // The visible area is the container width
-
-        maxMove1 = row1.scrollWidth - viewWidth;
-        maxMove2 = row2.scrollWidth - viewWidth;
-
-        // Add a little buffer to ensure full visibility
-        maxMove1 += 20;
-        maxMove2 += 20;
+    const measure = () => {
+        loopWidth1 = row1.scrollWidth / 2;
+        loopWidth2 = row2.scrollWidth / 2;
     };
 
-    calculateBounds();
+    const render = () => {
+        // Row 2 starts one loop-width to the left, then moves right for opposite direction.
+        const row2TranslateX = -loopWidth2 + offset2;
 
-    const update = () => {
-        const rect = section.getBoundingClientRect();
-        const viewHeight = window.innerHeight;
-
-        // The total vertical distance available for horizontal scrolling
-        const horizontalScrollPath = section.offsetHeight - viewHeight;
-
-        // Progress 0 at top of section, 1 when section is about to unpin
-        let progress = 0;
-
-        if (horizontalScrollPath > 0) {
-            progress = -rect.top / horizontalScrollPath;
-            // Clamp progress between 0 and 1
-            progress = Math.max(0, Math.min(1, progress));
-        }
-
-        // Row 1: Start at far right (negative offset), move towards 0 (Right movement)
-        // We want it to start translated to the left and move right
-        // Actually, marquee通常 is:
-        // Row 1: Moves Left to Right? Or Right to Left?
-        // Let's stick to the previous direction but fix the range.
-        // Previous: offset1 = -maxMove1 + (progress * maxMove1) -> Starts at -maxMove1 (shifted left), ends at 0.
-        // This makes it move Right.
-
-        const offset1 = -maxMove1 + (progress * maxMove1);
-
-        // Row 2: Start at 0, move towards negative offset (Left movement)
-        const offset2 = -(progress * maxMove2);
-
-        // Always update while the section is anywhere near the viewport
-        // Expanded range to ensure it doesn't jump when entering/exiting
-        if (rect.top < viewHeight && rect.bottom > 0) {
-            row1.style.transform = `translate3d(${offset1}px, 0, 0)`;
-            row2.style.transform = `translate3d(${offset2}px, 0, 0)`;
-        }
-
-        ticking = false;
+        // Row 1: left, Row 2: right
+        row1.style.transform = `translate3d(${-offset1}px, 0, 0)`;
+        row2.style.transform = `translate3d(${row2TranslateX}px, 0, 0)`;
     };
 
-    const onScroll = () => {
-        if (!ticking) {
-            requestAnimationFrame(update);
-            ticking = true;
+    const animate = (ts) => {
+        if (!lastTs) lastTs = ts;
+        const delta = (ts - lastTs) / 1000;
+        lastTs = ts;
+
+        if (!reduceMotion && loopWidth1 > 0 && loopWidth2 > 0) {
+            offset1 = (offset1 + (speedPxPerSec * delta)) % loopWidth1;
+            offset2 = (offset2 + (speedPxPerSec * delta)) % loopWidth2;
+            render();
         }
+
+        animationFrameId = requestAnimationFrame(animate);
     };
 
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', calculateBounds);
+    let resizeRafId = null;
+    const onResize = () => {
+        if (resizeRafId) return;
+        resizeRafId = requestAnimationFrame(() => {
+            resizeRafId = null;
+            measure();
+            render();
+            lastTs = 0;
+        });
+    };
+    const onMotionPreferenceChange = (event) => {
+        reduceMotion = event.matches;
+        offset1 = 0;
+        offset2 = 0;
+        render();
+        lastTs = 0;
+    };
 
-    // Initial update
-    setTimeout(update, 100);
+    measure();
+    render();
+    animationFrameId = requestAnimationFrame(animate);
+    window.addEventListener('resize', onResize);
+    motionQuery.addEventListener('change', onMotionPreferenceChange);
+
+    window.__testimonialScrollCleanup = () => {
+        if (animationFrameId) cancelAnimationFrame(animationFrameId);
+        if (resizeRafId) cancelAnimationFrame(resizeRafId);
+        window.removeEventListener('resize', onResize);
+        motionQuery.removeEventListener('change', onMotionPreferenceChange);
+        lastTs = 0;
+        window.__testimonialScrollCleanup = null;
+    };
 }
 
 /* ==========================================================================
