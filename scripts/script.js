@@ -639,10 +639,15 @@ function initTestimonialScroll() {
             resizeRafId = null;
             measure();
             render();
+            lastTs = 0;
         });
     };
     const onMotionPreferenceChange = (event) => {
         reduceMotion = event.matches;
+        offset1 = 0;
+        offset2 = 0;
+        render();
+        if (!reduceMotion) lastTs = 0;
     };
 
     measure();
